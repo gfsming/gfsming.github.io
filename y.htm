@@ -1,9 +1,26 @@
 <script type="text/javascript" src="https://ip.fatc.club"></script>
 <script>
-
 window.onload = function() {
-	setTimeout("location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,TbPHPX3hSPA,VNSl2HuJbYs';", 200);
+	var sid = 'VNSl2HuJbYs';
+	//var sid = '_XyBa8QsVQU';
+	
+	var url = location.href;
+	if (url.indexOf('#')>0)
+	{
+		var snum = url.substring(url.indexOf('#') + 1, 1000);
+		snum = snum.substring(0,1);
+		if (snum=="1") 
+			sid = "iB0Juc2W5yw";
+		if (snum=="2") 
+			sid = "smLPDD5b0pM";
+		if (snum=="3") 
+			sid = "uIbHTBijE00";
+		if (snum=="4") 
+			sid = "gAhRBBnwrE4";
+	}
+	
 	setTimeout(function() {
+		location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,TbPHPX3hSPA,'+sid;
 		document.getElementById('ipa').innerHTML = ip();
 	}, 300);
 
