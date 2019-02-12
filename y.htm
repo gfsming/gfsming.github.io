@@ -12,23 +12,18 @@ window.onload = function() {
 	if (url.indexOf('#')>0)
 		num = url.substring(url.indexOf('#') + 1, 1000);
 
-	var sid = 'iB0Juc2W5yw';
-	// 직캠 리스트
-	var d = ['8l2lknopvfU','76eiYr1j0_4','yUCdJddNJk0','LxHAlSVzhRo','cmf941WuD30','gAhRBBnwrE4','VNSl2HuJbYs'];
-//	for (var i = 0; i < d.length; i++)
-//		sid += "," + d[i];	// 순서대로
+	var sid = '';
 
 	// 1theK 뮤비리스트
-//	var arr = ['iciFwCnsyY4','9iPLjmz3_U4','_XyBa8QsVQU','ZsYwEV_ge4Y','lnXXfYA91Y8','i1n_1jrUEjU','Se8bbsUFjC8','0VKcLPdY9lI','bjRMhQpOYAM','GU7icQFVzHo'];
-//	var arr = ['iciFwCnsyY4','9iPLjmz3_U4','_XyBa8QsVQU'];
-	var arr = ['iB0Juc2W5yw','8l2lknopvfU','76eiYr1j0_4','yUCdJddNJk0','LxHAlSVzhRo','cmf941WuD30','gAhRBBnwrE4','VNSl2HuJbYs'];
-	for (var i = arr.length - 1; i > 0; i--) {
-		var j = Math.floor(Math.random() * (i + 1));
-		sid += "," + arr[j];	// 랜덤 순서
-		var temp = arr[i];
-		arr[i] = arr[j];
-		arr[j] = temp;
-	}
+	var arr = ['iciFwCnsyY4','9iPLjmz3_U4','_XyBa8QsVQU','ZsYwEV_ge4Y','lnXXfYA91Y8','i1n_1jrUEjU','Se8bbsUFjC8','0VKcLPdY9lI','bjRMhQpOYAM','GU7icQFVzHo'];
+	// 직캠 리스트
+	var d = ['iB0Juc2W5yw','8l2lknopvfU','76eiYr1j0_4','yUCdJddNJk0','LxHAlSVzhRo','cmf941WuD30','gAhRBBnwrE4','VNSl2HuJbYs'];
+
+	shuffle(d);
+
+	for (var i = 0; i < d.length; i++)
+		sid += "," + d[i];
+
 
 	setTimeout(function() {
 //		location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,TbPHPX3hSPA,'+sid;
@@ -47,6 +42,14 @@ window.onload = function() {
 
 }
 
+function shuffle(arr) {
+	for (var i = arr.length - 1; i > 0; i--) {
+		var j = Math.floor(Math.random() * (i + 1));
+		var temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+}
 </script>
 </HEAD>
 
