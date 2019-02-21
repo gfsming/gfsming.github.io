@@ -1,45 +1,21 @@
 <HTML>
 <HEAD>
-<TITLE>---</TITLE>
+<TITLE>y</TITLE>
 <META HTTP-EQUIV="Pragma" CONTENT="no-cache">
 <META HTTP-EQUIV="Expires" CONTENT="-1">
 
-<script type="text/javascript" src="https://ip.fatc.club"></script>
 <script>
 window.onload = function() {
-	var url = location.href;
-	var num = '';
-	if (url.indexOf('#')>0)
-		num = url.substring(url.indexOf('#') + 1, 1000);
 
-	var sid = '';
-
-	// 1theK 뮤비리스트
-	var arr = ['iciFwCnsyY4','9iPLjmz3_U4','_XyBa8QsVQU','ZsYwEV_ge4Y','lnXXfYA91Y8','i1n_1jrUEjU','Se8bbsUFjC8','0VKcLPdY9lI','bjRMhQpOYAM','GU7icQFVzHo'];
-	// 직캠 리스트
-	var d = ['iB0Juc2W5yw','8l2lknopvfU','76eiYr1j0_4','yUCdJddNJk0','LxHAlSVzhRo','cmf941WuD30','gAhRBBnwrE4','VNSl2HuJbYs'];
+	// 뮤비2개 직캠51/52 * 2
+	var str = 'TbPHPX3hSPA,iciFwCnsyY4,9iPLjmz3_U4,_XyBa8QsVQU,9iPLjmz3_U4,_XyBa8QsVQU,ZsYwEV_ge4Y,lnXXfYA91Y8,i1n_1jrUEjU,Se8bbsUFjC8,0VKcLPdY9lI,bjRMhQpOYAM,GU7icQFVzHo';
+	var d = str.split(',');
 
 	shuffle(d);
 
-	for (var i = 0; i < d.length; i++)
-		sid += "," + d[i];
-
-
 	setTimeout(function() {
-//		location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,TbPHPX3hSPA,'+sid;
-//		location.href = 'https://www.youtube.com/watch_videos?video_ids='+sid;
-		location.href = 'https://m.youtube.com/watch?v='+d[0];
-/*
-		if (num=='2')
-			location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,76eiYr1j0_4,yUCdJddNJk0';
-		else if (num=='4')
-			location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,LxHAlSVzhRo,cmf941WuD30';
-		else 
-			location.href = 'https://www.youtube.com/watch_videos?video_ids=iciFwCnsyY4,iB0Juc2W5yw,8l2lknopvfU';
-*/		
-		
-		//document.getElementById('ipa').innerHTML = ip();
-	}, 300);
+		location.href = "https://m.youtube.com/watch?v=" + d[0];
+	}, 100);
 
 }
 
@@ -51,11 +27,12 @@ function shuffle(arr) {
 		arr[j] = temp;
 	}
 }
+
 </script>
 </HEAD>
 
 <body>
-<span id="ipa"></span>
+
 
 </body>
 </html>
