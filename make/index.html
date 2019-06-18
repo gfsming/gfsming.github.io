@@ -1,0 +1,80 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+<title>멜론 본인확인 계정 만들기</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+<meta name="content-language" content="kr">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<style>
+span { color:blue; text-decoration:underline; cursor:pointer; }
+</style>
+<script>
+
+function toggle(num,o)
+{
+	var t = document.getElementById('img'+num);
+	if (o.innerText=='감추기')
+	{
+		o.innerText = '보이기';
+		t.style.display = 'none';
+	}
+	else
+	{
+		o.innerText = '감추기';
+		t.style.display = '';
+	}
+
+}
+
+</script>
+</head>
+<body>
+<div style="font-size:20px;font-weight:bold;">
+
+
+<table cellpadding="5px" cellspacing="25px">
+<tr valign="top">
+<td colspan="2" align="center">
+<div>멜론 본인확인 계정 만들기</div>
+</td>
+</tr>
+
+<tr valign="top">
+<td>
+<div>1. 구글메일 생성 과정 <span onclick="toggle(1,this);">감추기</span></div>
+<img id="img1" src="1google.gif"/>
+</td>
+<td>
+<div>1. 다음메일 생성 과정 <span onclick="toggle(2,this);">감추기</span></div>
+<img id="img2" src="2daum.gif"/>
+</td>
+</tr>
+
+<tr valign="top">
+<td>
+<div>2. 카카오계정 생성 과정 <span onclick="toggle(3,this);">감추기</span></div>
+<img id="img3" src="3kakao.gif"/>
+</td>
+<td>
+<div>3. 카카오로 멜론가입 후 본인확인 <span onclick="toggle(4,this);">감추기</span></div>
+<img id="img4" src="4melon.gif"/>
+</td>
+</tr>
+
+<tr valign="top">
+<td colspan="2" align="center">
+<div>중요한 단계 설명 <span onclick="toggle(5,this);">감추기</span></div>
+<img id="img5" src="4cut.jpg" border="0"/>
+</td>
+</tr>
+
+</table>
+
+<br><br>
+
+</div>
+
+</body>
+</html>
