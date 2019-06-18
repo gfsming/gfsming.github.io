@@ -1,0 +1,43 @@
+<!doctype html>
+<html lang="ko">
+
+<meta charset="UTF-8">
+
+<head>
+<title>헬퍼 : 네이버TV</title>
+</head>
+<body>
+
+<a target="_blank" href="https://chrome.google.com/webstore/detail/custom-javascript-for-web/poakhlngfciodnhlhhgnaaelnpjljija">cjs 플러그인 설치</a><br>
+<a target="_blank" href="https://chrome.google.com/webstore/detail/hola-free-vpn-proxy-unblo/gkojfkhlekighikafcpjkiklfbnlmeio">Hola VPN 설치</a><br>
+<a target="_blank" href="https://chrome.google.com/webstore/detail/super-auto-refresh-plus/globgafddkdlnalejlkcpaefakkhkdoa">Auto Refresh 설치</a><br>
+
+<br>
+<pre>
+1. 위 플러그인 모두 설치(크로미움 브라우저에서 추가)
+2. 네이버TV 링크로 이동
+3. Hola VPN 켜고 국가 선택
+4. cjs 스크립트 복붙 저장
+5. Auto Refresh 1분으로 설정
+</pre>
+
+
+<br>
+1. 네이버TV에서 아래 cjs 소스코드 등록 (컨트롤키 + A , C , V)
+<br>
+<a target="_blank" href="https://tv.naver.com/v/5084956">https://tv.naver.com/v/5084956</a> 엠카
+<br>
+뮤뱅,음중 : 해외ip 재생불가, 간혹되는 아시아 쪽 ip들도 있음
+<br>
+<textarea cols="80" rows="8">
+if (location.href.toString().indexOf('v.naver.com/v/')>0) {
+	var el = document.getElementById('header'), chd = document.createElement('div');
+	chd.innerHTML = '<iframe src="https://whatismyip.network/" style="width:400px;height:40px;" frameborder=0></iframe>';
+	el.insertBefore(chd, el.firstChild);
+}</textarea>
+
+<br>
+
+</div>
+</body>
+</html>
