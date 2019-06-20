@@ -92,10 +92,6 @@ function toggle(num,o)
 <div style="color:red;">1분 Auto Refresh 설정 <a target="_blank" href="https://chrome.google.com/webstore/detail/super-auto-refresh-plus/globgafddkdlnalejlkcpaefakkhkdoa">Auto Refresh 설치하기</a> </div>
 <div style="color:red;">270p 1개 반복, 브라우저 설정 미디어 자동재생</div>
 
-<iframe width="800" height="490" src="https://www.youtube.com/embed/wt50D1eF0FY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
-<embed width="800" height="490" src="https://www.youtube.com/embed/wt50D1eF0FY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></embed>
 
 
 </td>
@@ -106,6 +102,34 @@ function toggle(num,o)
 
 
 </div>
+
+<style>
+.video-container {    
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+}
+
+.video-container iframe, .video-container object, .video-container embed {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+</style>
+
+
+
+ <div class="video-container"> 
+
+<iframe width="800" height="490" src="https://www.youtube.com/embed/wt50D1eF0FY" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+ </div>
+
+
+
 
 </body>
 </html>
