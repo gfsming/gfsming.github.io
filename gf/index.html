@@ -45,13 +45,14 @@ function toggle(num,o)
 window.onload = function() {
 	var filter = "win16|win32|win64|mac";
 	var isMobile = false;
-	if(navigator.platform){
+	if(navigator.platform)
 		if(0 > filter.indexOf(navigator.platform.toLowerCase()))
 			isMobile = true; 
 
 	if (isMobile)
 	{
 		var x = document.getElementsByClassName('yt');
+		//alert(x.length);
 		x[0].className = 'vid';
 		x[1].className = 'vid';
 
