@@ -1,0 +1,72 @@
+
+<!doctype html>
+<html lang="ko">
+<head>
+<title>유튜브 스밍하기</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+<meta name="content-language" content="kr">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<style>
+span { color:blue; text-decoration:underline; cursor:pointer; }
+</style>
+<script>
+
+function toggle(num,o)
+{
+	var t = document.getElementById('img'+num);
+	if (o.innerText=='감추기')
+	{
+		o.innerText = '보이기';
+		t.style.display = 'none';
+	}
+	else
+	{
+		o.innerText = '감추기';
+		t.style.display = '';
+	}
+
+}
+
+</script>
+</head>
+<body>
+<div style="font-size:20px;font-weight:bold;">
+
+
+<table cellpadding="5px" cellspacing="15px">
+<tr valign="top">
+<td colspan="3" align="center">
+<div>유튜브 스밍하기</div>
+<div style="color:red;">추적방지 설정으로 새로운 구글계정 생성</div>
+<div style="color:red;">유튜브 로그인 상태로 스밍이 더 나음</div>
+</td>
+</tr>
+
+<tr valign="top">
+<td>
+<div>1. 구글계정 생성 <span onclick="toggle(1,this);"></span></div>
+<div style="font-size:15px;font-weight:normal;text-align:center;"><a target="_blank" href="https://myaccount.google.com/data-and-personalization">구글 옵션 맞춤설정 이동</a></div>
+<img id="img1" src="u1.jpg" border="1"/>
+</td>
+<td>
+<div>2. 파이어폭스 설정 <span onclick="toggle(2,this);"></span></div>
+<div style="font-size:15px;font-weight:normal;text-align:center;">PC파폭도 비슷하게 설정</div>
+<img id="img2" src="u2.jpg" border="1"/>
+</td>
+<td>
+<div>3. 유튜브 로그인 설정 <span onclick="toggle(3,this);"></span></div>
+<div style="font-size:15px;font-weight:normal;text-align:center;"><a target="_blank" href="http://gfsming.000webhostapp.com/mv">공식뮤비 바로 가기</a></div>
+<img id="img3" src="u3.jpg" border="1"/>
+</td>
+</tr>
+
+
+</table>
+
+<br><br>
+
+</div>
+
+</body>
+</html>
