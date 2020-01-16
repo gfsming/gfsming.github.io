@@ -46,6 +46,7 @@ function ios(obj)
 {
 	var src = obj.getAttribute('href').toString().substring(8,1000);
 	var ua = navigator.userAgent;
+	alert(ua);
 	if (ua.indexOf('iPad') > 0)
 		obj.setAttribute('href', 'melonipad' + src);
 	else if (ua.indexOf('iPhone') > 0)
