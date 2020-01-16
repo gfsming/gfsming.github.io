@@ -29,18 +29,15 @@ window.onload = function() {
 				music = music.split(",").join("|");
 				url = "bugs3://app/tracks/lists?title=전체듣기&miniplay=Y&track_ids=";
 			}
-			if (stype=='naver')
-				url = "comnhncorpnavermusic://listen?version=3&trackIds=";
-			if (stype=='mnet')
-				url = "mnetmobile://playaod?media_id=";
 			//alert(url);
 			location.href = url + music;
 		}
-		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='naver' || music=='mnet' || music=='mnet1')
+		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs')
 		{
-			var url = document.getElementById(music).getAttribute('href');
+			document.getElementById(music).click();
+//			var url = document.getElementById(music).getAttribute('href');
 			//alert(url);
-			location.href = url;
+//			location.href = url;
 		}
 	}
 }
@@ -82,13 +79,13 @@ https://gfriend9.000webhostapp.com/#_mnet_31891890
 <br>현재 재생목록을 완전히 비운 후 바로 담기 해주세요
 <br>
 <br>
-<a id="melon" href="melonapp://play?ctype=1&menuid=0&cid=31895208,31895209,31895210,31895211,31895212,31895208,31895213,31895214,31895215,31556500,31895208,31052421,31196764,5791706,8028701,8262125" onclick="ios(this);">Melon 권장스밍 바로 담기(<span style="color:red;">7/1 컴백!!</span>)</a>
+<a id="melon" href="melonapp://play?ctype=1&menuid=0&cid=31895208,31895209,31895210,31895211,31895212,31895208,31895213,31895214,31895215,31556500,31895208,31052421,31196764,5791706,8028701,8262125" onclick="ios(this);">Melon 권장스밍 담기(<span style="color:red;">2/3 컴백!!</span>)</a>
 
 <br><br>
-<a id="genie" href="cromegenie://scan/?landing_type=31&landing_target=89152397;89152398;89152399;89152400;89152401;89152397;89152402;89152403;89152404;88545599;89152397;87946017;88120012;84581811;85871514;86427291">Genie 권장스밍 바로 담기</a>
+<a id="genie" href="cromegenie://scan/?landing_type=31&landing_target=89152397;89152398;89152399;89152400;89152401;89152397;89152402;89152403;89152404;88545599;89152397;87946017;88120012;84581811;85871514;86427291">Genie 권장스밍 담기</a>
 
 <br><br>
-<a id="bugs" href="bugs3://app/tracks/lists?track_ids=31637330|31637331|31637332|31637333|31637334|31637335|31637336|31637337|31413840|31051970|31154135|4479093|30137632|30315228">Bugs 권장스밍 바로 담기</a>
+<a id="bugs" href="bugs3://app/tracks/lists?track_ids=31637330|31637331|31637332|31637333|31637334|31637335|31637336|31637337|31413840|31051970|31154135|4479093|30137632|30315228">Bugs 권장스밍 담기</a>
 
 
 <br><br>
