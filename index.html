@@ -29,10 +29,15 @@ window.onload = function() {
 				music = music.split(",").join("|");
 				url = "bugs3://app/tracks/lists?title=전체듣기&miniplay=Y&track_ids=";
 			}
+			if (stype=='vibe')
+			{
+				music = music.split(",").join(",");
+				url = "vibe://listen?trackIds=";
+			}
 			//alert(url);
 			location.href = url + music;
 		}
-		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs')
+		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='vibe')
 		{
 			document.getElementById(music).click();
 //			var url = document.getElementById(music).getAttribute('href');
@@ -87,6 +92,9 @@ https://gfriend9.000webhostapp.com/#_mnet_31891890
 
 <br><br>
 <a id="bugs" href="bugs3://app/tracks/lists?track_ids=31637330|31637331|31637332|31637333|4277616|31637334|31637335|31637336|30263521|31637337">Bugs 권장스밍 담기</a>
+
+<br><br>
+<a id="vibe" href="vibe://listen?trackIds=21293002,21478467">바이브 권장스밍 담기</a>
 
 
 <br><br>
