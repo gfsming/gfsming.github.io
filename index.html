@@ -55,7 +55,7 @@ function ios(obj)
 //	if (ua.indexOf('iPad') > 0)
 	if (ua.indexOf('iPhone') > 0)
 		obj.setAttribute('href', 'meloniphone' + src);
-	else if (ua.indexOf('Macintosh') > 0)
+	else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 		obj.setAttribute('href', 'melonipad' + src);
 
 }
