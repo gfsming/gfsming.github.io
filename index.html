@@ -16,11 +16,21 @@
 
 <script>
 window.onload = function() {
+	var today = new Date().getDay();
+	if (today==4)
+		document.getElementById('sms').innerHTML = '문자투표 #2336 엠카';
+	else if (today==6)
+		document.getElementById('sms').innerHTML = '문자투표 #0505 음중';
+
 	var url = location.href;
 	if (url.indexOf('#')>0)
 	{
 		var music = url.substring(url.indexOf('#') + 1, 1000);
-		if (music.substring(0,1) == '_')
+		if (music.substring(0,4)=='vote')
+		{
+			vote();
+		}
+		else if (music.substring(0,1) == '_')
 		{
 			stype = music.substring(1,music.lastIndexOf('_'));
 			music = music.substring(music.lastIndexOf('_') + 1, 1000);
@@ -44,7 +54,7 @@ window.onload = function() {
 			//alert(url);
 			location.href = url + music;
 		}
-		else if (music.substring(0,4)=='vote' || music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='vibe')
+		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='vibe')
 		{
 			document.getElementById(music).click();
 //			var url = document.getElementById(music).getAttribute('href');
@@ -54,16 +64,20 @@ window.onload = function() {
 	}
 }
 
-function vote(obj)
+function vote()
 {
-	var src = 'sms:#';
-	src += '0505'	// 2336	0505
+	var src = 'sms:%23';
+	var today = new Date().getDay();
+	if (today==4)
+		src += '2336';
+	else if (today==6)
+		src += '0505';
 	var ua = navigator.userAgent;
 	document.getElementById('agt').innerHTML = ua.toString();
 	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-		obj.setAttribute('href', src + '&body=여자친구');
-	else if ()
-		obj.setAttribute('href', src + '?body=여자친구');
+		location.href = src + '&body=여자친구';
+	else
+		location.href = src + '?body=여자친구';
 }
 
 function ios(obj)
@@ -87,6 +101,7 @@ function toggle(obj)
 </script>
 <style>
 .guide {color:blue;font-size:14px;text-decoration:none;cursor:pointer;}
+
 </style>
 </head>
 <body style="margin:0">
@@ -97,10 +112,14 @@ function toggle(obj)
 <!--
 http://www.youtube.com/watch_videos?video_ids=
 
+https://gfsming.github.io/#vote
 https://gfsming.github.io/#_vibe_21293002
 
 //-->
 <center>
+<div style="display:none;"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
+
+
 <br><span style="font-size:20px;font-weight:bold;">여자친구 권장스밍 원터치 담기!</span> 
 <br><span style="color:red;">2/12 수정 업데이트!!</span>
 <br>현재 재생목록을 비운 후 터치하세요
@@ -160,7 +179,6 @@ Download! 꾹 눌러서 링크 저장
 <div id='agt' style="color:#000;display:none;"></div>
 
 
-<a id="sms" href="#vote" style="display:;color:#fff" onclick="vote(this);">vote</a>
 
 <a href="melonapp://play?ctype=1&menuid=0&cid=32390497" style="display:;color:#fff">test</a>
 
