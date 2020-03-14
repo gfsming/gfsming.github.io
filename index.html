@@ -16,10 +16,15 @@
 <script>
 window.onload = function() {
 	var today = new Date().getDay();
+	var txt = '';
 	if (today==4)
-		document.getElementById('sms').innerHTML = '문자투표 #2336 엠카';
+		txt = '문자투표 #2336 엠카';
 	else if (today==6)
-		document.getElementById('sms').innerHTML = '문자투표 #0505 음중';
+		txt = '문자투표 #0505 음중';
+	txt = '';	// 문투 있을 때 주석처리
+	document.getElementById('sms').innerHTML = txt;
+	if (txt=='')
+		document.getElementById('vdiv').style.display = 'none';
 
 	var url = location.href;
 	if (url.indexOf('#')>0)
@@ -61,10 +66,14 @@ window.onload = function() {
 //			location.href = url;
 		}
 	}
+	document.getElementById('agt').innerHTML = navigator.userAgent.toString();
 }
 
 function vote()
 {
+	if (document.getElementById('sms').innerHTML=='')
+		return;
+
 	var src = 'sms:%23';
 	var today = new Date().getDay();
 	if (today==4)
@@ -72,7 +81,6 @@ function vote()
 	else if (today==6)
 		src += '0505';
 	var ua = navigator.userAgent;
-	document.getElementById('agt').innerHTML = ua.toString();
 	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 		location.href = src + '&body=여자친구';
 	else
@@ -81,13 +89,17 @@ function vote()
 
 function ios(obj)
 {
-	var src = obj.getAttribute('href').toString().substring(8,1000);
 	var ua = navigator.userAgent;
-	document.getElementById('agt').innerHTML = ua.toString();
-	if (ua.indexOf('iPhone') > 0)
-		obj.setAttribute('href', 'meloniphone' + src);
-	else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-		obj.setAttribute('href', 'melonipad' + src);
+	var src = obj.getAttribute('href');
+	if (obj.id.toString()=='genie')	{
+		obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
+	}
+	else {
+		if (ua.indexOf('iPhone') > 0)
+			obj.setAttribute('href', src.replace('melonapp','meloniphone'));
+		else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+			obj.setAttribute('href', src.replace('melonapp','melonipad'));
+	}
 }
 
 function toggle(obj)
@@ -116,7 +128,7 @@ https://gfsming.github.io/#_vibe_21293002
 
 //-->
 <center>
-<div style="display:none;"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
+<div id="vdiv"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
 
 
 <br><span style="font-size:20px;font-weight:bold;">여자친구 권장스밍 원터치 담기!</span> 
@@ -129,7 +141,7 @@ https://gfsming.github.io/#_vibe_21293002
 <tr valign="top" align="center">
 <td><span onclick="toggle('m1');" class="guide">Melon<br>가이드</span></td>
 <td>
-<a class="melon" id="melon" href="melonapp://play?ctype=1&menuid=0&cid=32351139,32351138,32351140,32351141,32351139,32351142,32351143,31052421,32351139,5791706,8028701,8262125" onclick="ios(this);">Melon 권장스밍 담기</a>
+<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=32351139,32351138,32351140,32351141,32351139,32351142,32351143,31052421,32351139,5791706,8028701,8262125">Melon 권장스밍 담기</a>
 <br><br>
 </td>
 <td><span onclick="toggle('m2');" class="guide">Melon<br>쉼스밍</span></td>
@@ -137,14 +149,13 @@ https://gfsming.github.io/#_vibe_21293002
 <tr valign="top" align="center">
 <td><span onclick="toggle('g1');" class="guide">Genie<br>가이드</span></td>
 <td>
-<a class="genie" id="genie" href="cromegenie://scan/?landing_type=31&landing_target=89818161;89818160;89818162;89818163;89818161;89818164;89818165;87946017;89818161;84581811;85871514;86427291">Genie 권장스밍 담기</a>
+<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=89818161;89818160;89818162;89818163;89818161;89818164;89818165;87946017;89818161;84581811;85871514;86427291">Genie 권장스밍 담기</a>
 </td>
 <td><span onclick="toggle('g2');" class="guide">Genie<br>쉼스밍</span></td>
 </tr>
 </table>
-<span style="font-size:14px;">iPhone/iPad에선 Genie가 안됩니다</span>
 
-<br><br>
+<br>
 <a class="bugs" id="bugs" href="bugs3://app/tracks/lists?track_ids=31821647|31821646|31821648|31821649|4277616|31821650|31821651|31051970|30263521|4479093|30137632|30315228">Bugs 권장스밍 담기</a>
 
 <br><br>
@@ -162,7 +173,7 @@ https://gfsming.github.io/#_vibe_21293002
 Download! 꾹 눌러서 링크 저장
 
 <br><br>
-<a class="video" target="_blank" href="https://gfsming.000webhostapp.com/mv">공식뮤비 재생</a>
+<a class="video" target="_blank" href="https://youtu.be/kx5TWKPE5sU">공식뮤비 재생</a>
 
 <br><br>
 <a class="twit" target="_blank" href="https://twitter.com/GFriend_strm">여친음원팀 트위터 가기</a>
@@ -175,11 +186,8 @@ Download! 꾹 눌러서 링크 저장
 <br><br>
 <br><br>
 
-<div id='agt' style="color:#000;display:none;"></div>
-
-
-
-<a href="melonapp://play?ctype=1&menuid=0&cid=32390497" style="display:;color:#fff">test</a>
+<div id='agt' style="color:#fff;display:;"></div>
+<a href="" style="display:none;color:#fff">test click</a>
 
 <div id="m1" style="display:none;position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:#000;">
 <div style="color:#FFF;width:100%;height:30px;cursor:pointer" onclick="toggle('m1');">Melon 기본 가이드 닫기 X</div>
