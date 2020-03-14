@@ -92,7 +92,8 @@ function ios(obj)
 	var ua = navigator.userAgent;
 	var src = obj.getAttribute('href');
 	if (obj.id.toString()=='genie')	{
-		obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
+		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+			obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
 	}
 	else {
 		if (ua.indexOf('iPhone') > 0)
