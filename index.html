@@ -15,6 +15,8 @@
 
 <script>
 window.onload = function() {
+	var ua = navigator.userAgent;
+
 	var today = new Date().getDay();
 	var txt = '';
 	if (today==4)
@@ -33,6 +35,42 @@ window.onload = function() {
 		if (music.substring(0,4)=='vote')
 		{
 			vote();
+		}
+		else if (music.substring(0,4)=='app_')
+		{
+			music = music.substring(4,8);
+			//alert(music);
+			var url = '';
+			if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+			{
+				if (music=='open')
+					url = 'https://apps.apple.com/kr/app/openvpn-connect/id590379981';
+				if (music=='whos')
+					url = 'https://apps.apple.com/kr/app/id1473903262';
+				if (music=='idol')
+					url = 'https://apps.apple.com/kr/app/id1185735018';
+				if (music=='talk')
+					url = 'https://apps.apple.com/kr/app/id897927737';
+				if (music=='star')
+					url = 'https://apps.apple.com/kr/app/id1470904745';
+			}
+			else
+			{
+				if (music=='open')
+					url = 'https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=ko';
+				if (music=='whos')
+					url = 'https://play.google.com/store/apps/details?id=com.hanteo.whosfan';
+				if (music=='idol')
+					url = 'https://play.google.com/store/apps/details?id=com.nwz.ichampclient&hl=ko';
+				if (music=='talk')
+					url = 'https://play.google.com/store/apps/details?id=com.iloen.aztalk';
+				if (music=='star')
+					url = 'https://play.google.com/store/apps/details?id=kr.co.gleammedia.starplay';
+			}
+			//alert(url);
+
+			if (url!='')
+				location.href = url;
 		}
 		else if (music.substring(0,1) == '_')
 		{
@@ -87,6 +125,16 @@ function vote()
 		location.href = src + '?body=여자친구';
 }
 
+function radio(num)
+{
+	var src = 'sms:%23' + num;
+	var ua = navigator.userAgent;
+	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+		location.href = src + '&body=신청곡 여자친구 신곡 ';
+	else
+		location.href = src + '?body=신청곡 여자친구 신곡 ';
+}
+
 function ios(obj)
 {
 	var ua = navigator.userAgent;
@@ -110,33 +158,11 @@ function toggle(obj)
 	else
 		document.getElementById(obj).style.display='none';
 }
+
+
 </script>
 <style>
 .guide {color:blue;font-size:14px;text-decoration:none;cursor:pointer;}
-
-.flo {
-	box-shadow:inset 0px 0px 15px 3px #3F3FFF;
-	background:linear-gradient(to bottom, #3F3FFF 5%, #415989 100%);
-	background-color:#3F3FFF;
-	border-radius:17px;
-	border:1px solid #1f2f47;
-	display:inline-block;
-	cursor:pointer;
-	color:#ffffff;
-	font-family:Arial;
-	font-size:15px;
-	padding:6px 13px;
-	text-decoration:none;
-	text-shadow:0px 1px 0px #263666;
-}
-.flo:hover {
-	background:linear-gradient(to bottom, #415989 5%, #3F3FFF 100%);
-	background-color:#415989;
-}
-.flo:active {
-	position:relative;
-	top:1px;
-}
 
 </style>
 </head>
@@ -154,6 +180,7 @@ https://gfsming.github.io/#_vibe_21293002
 //-->
 <center>
 <div id="vdiv"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
+
 
 
 <br><span style="font-size:20px;font-weight:bold;">여자친구 권장스밍 원터치 담기!</span> 
@@ -199,9 +226,24 @@ https://gfsming.github.io/#_vibe_21293002
 Download! 꾹 눌러서 링크 저장
 
 <br><br>
-<a class="video" target="_blank" href="https://youtu.be/kx5TWKPE5sU">공식뮤비 재생</a>
+<a class="video" target="_blank" href="https://youtu.be/kx5TWKPE5sU">공식뮤비 스트리밍</a>
 
 <br><br>
+<br>
+
+<div>
+<a class="btn3" href="javascript:radio('8000');">MBC FM4U</a>
+<a class="btn2" href="javascript:radio('1077');">SBS 파워FM</a>
+<a class="btn1" href="javascript:radio('8910');">KBS 쿨FM</a>
+</div>
+<div style="margin:15px 0;">
+<a class="btn3" href="javascript:radio('8001');">MBC 표준FM</a>
+<a class="btn2" href="javascript:radio('1035');">SBS 러브FM</a>
+<a class="btn1" href="javascript:radio('1061');">KBS 해피FM</a>
+</div>
+
+<br>
+<br>
 <a class="twit" target="_blank" href="https://twitter.com/GFriend_strm">여친음원팀 트위터 가기</a>
 
 <br><br>
