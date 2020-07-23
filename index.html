@@ -20,10 +20,10 @@ window.onload = function() {
 	var today = new Date().getDay();
 	var txt = '';
 	if (today==4)
-		txt = '문자투표 #2336 엠카';
-	else if (today==6)
-		txt = '문자투표 #0505 음중';
-	txt = '';	// 문투 있을 때 주석처리
+		txt = '#2336 엠카 문투 원터치';
+	//else if (today==6)
+	//	txt = '문자투표 #0505 음중';
+	//txt = '';	// 문투 있을 때 주석처리
 	document.getElementById('sms').innerHTML = txt;
 	if (txt=='')
 		document.getElementById('vdiv').style.display = 'none';
