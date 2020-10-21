@@ -106,14 +106,14 @@ function loadPlay() {
 }
 function savePlay() {
 	$('#playlist li').each(function(e) {
-		var str = $(this).attr('data-id');
-		var pos = favorites.indexOf(str);
+		var id = $(this).attr('data-id');
+		var pos = favorites.indexOf(id);
 		if (pos < 0)
 			favorites.push(id);
 		else
 			favorites.splice(pos, 1);
 	});
-	alert(favorites);
+	//alert(favorites);
 
 	localStorage.setItem('favorites', JSON.stringify(favorites));
 }
