@@ -1,0 +1,527 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="content-language" content="kr">
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+
+<meta http-equiv="Expires" content="-1">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui-touch-punch/0.2.3/jquery.ui.touch-punch.min.js"></script>
+
+<style id="compiled-css" type="text/css">
+
+::-webkit-scrollbar { -webkit-appearance: none; } 
+::-webkit-scrollbar:vertical { width: 32px; } 
+::-webkit-scrollbar:horizontal { height: 12px; } 
+::-webkit-scrollbar-thumb { background-color: rgba(0, 0, 0, .5); border-radius: 0px; border: 2px solid #ffffff; } 
+::-webkit-scrollbar-track { border-radius: 0px; background-color: #ffffff; }
+
+
+
+
+
+body { font-size:15px; }
+
+*{ margin:0; padding:0;}
+.ui-draggable-container{ clear:both; background:#fff; padding:5px; margin:5px 10px 5px; border:1px dotted blue; list-style:none;}
+.ui-draggable-container li, li.ui-draggable{ color:#777; background:#F6F5FA; border:1px solid #ccc; width:270px; padding:3px; margin:1px; display:inline-block; }
+
+#playlist li { color:#000; }
+
+.dontDrop	{ background-color:#F2F8E7; }
+.filled	{ background-color:green; }
+
+.album { padding-left:5px; height:25px;  }
+.tit { float:left; width:250px; overflow:hidden; font-weight:bold; font-size:16px; cursor: pointer;}
+.rbtn { float:right; width:50px; vertical-align:top; font-size:15px; cursor: pointer; color:#999; }
+
+/* EOS */
+</style>
+
+</head>
+<body style="width:670px; border:0px solid #000;">
+
+<div style="width:700px; padding:3px; margin:5px 0;">
+<div style="text-align:center; font-size:25px; font-weight:bold; ">버디 폰에 저장하는 플레이리스트</div>
+<div style="width:320px;float:left;">
+
+
+<div style="padding:0 12px 0 0; margin:0 0 10px 0;">
+	<div style="float:left; color:#666; padding-left:10px; "></div>
+	<div style="float:right; cursor: pointer; color:#666;" onclick="addOption(1)" alt="Add All">전곡담기 ▶▶</div>
+</div>
+
+<!--draggable-panel-start  -->
+	<div id="albumlist" style="width:312px;clear:both;">
+		<ul class="ui-draggable-container">
+			<li id="" class="ui-draggable"><span></span>test</li>
+		</ul>
+	</div>
+</div>
+<!--draggable-panel-end  --> 
+
+<!--droppable-panel-start-->
+<div style="float:left;margin:-7px 0;">
+	<div style="padding-right:5px;  margin:7px 0 10px 0;font-size:15px;">
+		<div style="float:left;  cursor: pointer; color:#666;" onclick="clearAll();">◁◁ 모두삭제</div>
+		<div style="float:right; cursor: pointer; color: #5E0E6F;" onclick="play(3);">♩VIBE</div>
+		<div style="float:right; cursor: pointer; margin-right:5px; color: #00D344;" onclick="play(2);">♩멜론</div>
+		<div style="float:right; cursor: pointer; margin-right:5px; color: #FF3B28;" onclick="play(1);">♩벅스</div>
+		<div style="float:right; cursor: pointer; margin-right:5px; color: #0095FF;" onclick="play(0);">♬지니</a></div>
+	</div>
+	<div style="clear:both; width:270px; margin:2px; text-align:center; color:#5E0E6F; ">노래를 끌어담고 재생순서를 수정한 다음<br>이용중인 <span style="color: #0095FF;">♬음원앱♩</span>을 터치해주세요</div>
+	<div id="cardSlots" style="background:#eee; width:312px; overflow-y:scroll;overflow-x:hidden;">
+		<ul id="playlist" style="height:800px;" class="ui-droppable ui-sortable"></ul>
+	</div>
+</div>
+<!--droppable-panel-end--> 
+  
+</div>
+
+
+<script type="text/javascript">//<![CDATA[
+
+
+function clearAll() {
+	$('#playlist').html('');
+	if(localStorage)
+		localStorage.clear();
+} 
+
+
+
+var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+function loadPlay() {
+	favorites.forEach(function(id) {
+		var txt = $('#'+id).text();
+		var html = '<li class="ui-draggable filled"  data-id="' + id + '" style="display: inline-block;">' + txt + '</li>';
+		$('#playlist').append(html);
+	});
+}
+function savePlay() {
+	$('#playlist li').each(function(e) {
+		var str = $(this).attr('data-id');
+		var pos = favorites.indexOf(str);
+		if (pos < 0)
+			favorites.push(id);
+		else
+			favorites.splice(pos, 1);
+	});
+	alert(favorites);
+
+	localStorage.setItem('favorites', JSON.stringify(favorites));
+}
+
+function play(i) {
+	i = Number(i);
+	var sid = '';
+	$('#playlist li').each(function(e) {
+		var str = $(this).attr('data-id');
+		var arr = str.split('_');
+		sid += arr[i] + ',';
+	});
+	playApp(i, sid);
+}
+
+
+function playApp(i, src)
+{
+	var ua = navigator.userAgent;
+	if (i==0) {
+		src = 'cromegenie://scan/?landing_type=31&landing_target=' + src.split(",").join(";");
+		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+			src = src.replace('cromegenie://scan','KTolleh00167://landing');
+	}
+	else if (i==1) {
+		src = 'bugs3://app/tracks/lists?track_ids=' + src.split(",").join("|");
+	}
+	else if (i==2) {
+		src = 'melonapp://play?ctype=1&menuid=0&cid=' + src;
+		if (ua.indexOf('iPhone') > 0)
+			src = src.replace('melonapp','meloniphone');
+		else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+			src = src.replace('melonapp','melonipad');
+	}
+	else if (i==3) {
+		src = 'vibe://listen?trackIds=' + src;
+	}
+	//alert(src);
+	location.href = src;
+}
+
+
+function addOption(aidx) {
+	var cls = 'ui-draggable-container';
+    if (aidx > 1)
+		cls = aidx;
+	
+	$('.'+cls+' li').each(function(e) {
+		var html = '<li class="ui-draggable filled"  data-id="' + $(this).attr('id') + '" style="display: inline-block;">' + $(this).text() + '</li>';
+		$('#playlist').append(html);
+	});
+	$('#cardSlots').css('background-color','#F2F8E7');
+	savePlay();
+}
+
+
+function showAlbum(aid) {
+	$('.ui-draggable-container').hide();
+	$('.'+aid).show();
+}
+
+$( document ).ready(function() { 
+	init2();
+	init();
+	loadPlay();
+	showAlbum('10459845');
+});
+
+function init() {
+  var mouse_button = false;
+  $('.ui-draggable').live({
+      mousedown: function () {
+          mouse_button = true;
+      },
+      mouseup: function () {
+
+          if ($(this).attr('data-pos') == 'out' && $(this).attr('data-id')) {
+              var p = $('#' + $(this).attr('data-id'));
+              var offset = p.offset();
+              $(this).hide();
+              $(this).animate({ left: offset.left, top: offset.top, width: $(this).width, height: $(this).height }, 100, function () {
+                  $(this).remove();
+                  $( ".ui-droppable" ).each(function() {
+                    if($(this).children().length == 0) {
+                      $( this ).removeClass("dontDrop");
+                    }
+                  });
+                  p.draggable("enable");
+                
+              });
+          }
+          mouse_button = false;
+      },
+      mouseout: function () {
+          if (mouse_button) {
+              mouse_button = false;
+          }
+      }
+
+  });
+
+    $( '.ui-draggable' ).draggable( {
+      cursor: 'move',
+      helper: 'clone',
+      connectToSortable: ".ui-droppable",
+      revert: function (event, ui) {
+        }
+    } );
+
+    $(".ui-droppable").sortable({
+        cursor: "move",
+        connectWith: ".ui-droppable",
+        receive: function (event, ui) {
+			//$(this).children().css('border','1px solid #ccc');
+			//$(this).children().css('color','#000');
+
+			if($(this).children().length >= 1) {
+
+				$(this).children().addClass('filled');
+				$(this).addClass('dontDrop');
+
+				$( ".ui-droppable" ).each(function() {
+				  if($(this).children().length == 0) {
+					$( this ).removeClass("dontDrop");
+				  }
+				});
+			}else {
+				$(this).children().removeClass('filled');
+			}
+			if ($(this).data().sortable.currentItem) {
+					$(this).data().sortable.currentItem.attr('data-id', $(ui.item).attr("id"));
+					//$(ui.item).draggable("disable");
+			}
+        },
+        out: function (event, ui) {  if (ui.helper) { ui.helper.attr('data-pos', 'out'); } },
+        over: function (event, ui) { ui.helper.attr('data-pos', 'in'); }
+    });
+}
+
+
+// 앨범리스트 데이터
+function init2() {
+  
+	var html = '';
+	$(datum).each(function(k, data) { 
+		$(data.albums).each(function(index, album) { 
+			if (album.aid)
+			{
+				html += '<div onclick=showAlbum("'+album.aid+'") class="album"><div class="tit">' + album.name + '</div><div onclick=addOption("'+album.aid+'") class="rbtn" alt="Add Album">담기 ▶</div></div>'; 
+				html += '<ul class="ui-draggable-container '+album.aid+'">'; 
+				$.each(album.songs, function (sid,song) {
+					html += '<li id="' + sid + '" class="ui-draggable">' + song + '</li>'; 
+				});
+				html += '</ul>'; 
+			}
+		}) 
+	});
+
+	$("#albumlist").html(html); 
+
+}
+
+
+var datum =  [{ 
+"albums": [
+	{ 
+		"aid": "",
+		"name": "",
+		"songs": {
+			"": "",
+			"": ""
+		}
+	},{ 
+		"aid": "10459845",
+		"name": "回:Song of the Sirens - Apple",
+		"songs": {
+			"90512667_31967971_32772984_40903918": "Apple",
+			"90512668_31967972_32772985_40903916": "눈의 시간",
+			"90512669_31967973_32772986_40903917": "거울의 방",
+			"90512670_31967974_32772987_40903919": "Tarot Cards",
+			"90512671_31967975_32772988_40903921": "Creme Brulee",
+			"90512672_31967976_32772989_40903920": "북쪽 계단"
+		}
+	},{ 
+		"aid": "10383590",
+		"name": "回:LABYRINTH - 교차로",
+		"songs": {
+			"89818160_31821646_32351138_39664403": "Labyrinth",
+			"89818161_31821647_32351139_39664398": "교차로 (Crossroads)",
+			"89818162_31821648_32351140_39664399": "Here We Are",
+			"89818163_31821649_32351141_39664400": "지금 만나러 갑니다 (Eclipse)",
+			"89818164_31821650_32351142_39664401": "Dreamcatcher",
+			"89818165_31821651_32351143_39664402": "From Me"
+		}
+	},{ 
+		"aid": "10302011",
+		"name": "FEVER SEASON - 열대야",
+		"songs": {
+			"89152397_31637330_31895208_27372467": "열대야(Fever)",
+			"89152398_31637331_31895209_27372468": "Mr. Blue",
+			"89152399_31637332_31895210_27372469": "좋은 말 할 때 (Smile)",
+			"89152400_31637333_31895211_27372470": "바라 (Wish)",
+			"89152401_31637334_31895212_27372471": "Paradise",
+			"89152402_31637335_31895213_27372472": "기대 (Hope)",
+			"89152403_31637336_31895214_27372474": "FLOWER (Korean Ver.)",
+			"89152404_31637337_31895215_27372473": "열대야 (Fever) (Inst.)"
+		}
+	},{ 
+		"aid": "10242169",
+		"name": "Time for us - 해야",
+		"songs": {
+			"88545599_31413840_31556500_25288919": "해야",
+			"88545600_31413841_31556501_25288920": "You ar not alone",
+			"88545601_31413842_31556502_25288921": "기적을 넘어 (L.U.V.)",
+			"88545602_31413843_31556503_25288923": "GLOW (만화경)",
+			"88545603_31413844_31556504_25288925": "비밀 이야기 (Our Secret)",
+			"88545604_31413845_31556505_25288922": "Only 1",
+			"88545605_31413846_31556506_25288924": "Truly Love",
+			"88545606_31413847_31556507_25288929": "보호색 (Show Up)",
+			"88545607_31413848_31556508_25288928": "겨울, 끝 (It`s You)",
+			"88545608_31413849_31556509_25288926": "A Starry Sky",
+			"88545609_31413850_31556510_25288927": "Love Oh Love",
+			"88545610_31413851_31556511_25288930": "Memoria (Korean Ver.)",
+			"88545611_31413852_31556512_25288931": "해야 (Sunrise) (Inst.)"
+		}
+	},{ 
+		"aid": "10186691",
+		"name": "Sunny Summer - 여름여름해",
+		"songs": {
+			"88120012_31154135_31196764_21478467": "여름여름해 (Sunny Summer)",
+			"88120013_31154136_31196765_21478595": "Vacation",
+			"88120014_31154137_31196766_21478598": "Sweety",
+			"88120015_31154138_31196767_21478596": "바람 바람 바람 (Windy Windy)",
+			"88120016_31154139_31196768_21478597": "Love In The Air"
+		}
+	},{ 
+		"aid": "10163106",
+		"name": "Time for the moon night - 밤",
+		"songs": {
+			"87946016_31051969_31052420_21293077": "intro TFTMN",
+			"87946017_31051970_31052421_21293002": "밤",
+			"87946018_31051971_31052422_21293078": "Love Bug",
+			"87946019_31051972_31052423_21293079": "휘리휘리",
+			"87946021_31051973_31052424_21293080": "틱틱",
+			"87946021_31051974_31052425_21293081": "Bye",
+			"87946022_31051975_31052426_21293082": "별",
+			"87946023_31051976_31052427_21293034": "밤 inst"
+		}
+	},{ 
+		"aid": "10096067",
+		"name": "RAINBOW - 여름비",
+		"songs": {
+			"87438613_30780757_30630736_18961102": "여름비 (SUMMER RAIN)",
+			"87438614_30780758_30630737_18961105": "RAINBOW",
+			"87438620_30780764_30630743_18961096": "여름비 (SUMMER RAIN) (Inst.)"
+		}
+	},{ 
+		"aid": "10084442",
+		"name": "PARALLEL - 귀를 기울이면",
+		"songs": {
+			"87325107_30737161_30558524_18478051": "INTRO (BELIEF)",
+			"87325108_30737162_30558525_18478052": "귀를 기울이면 (LOVE WHISPER)",
+			"87325109_30737163_30558526_18478053": "두 손을 모아 (AVE MARIA)",
+			"87325110_30737164_30558527_18478054": "이분의 일 1/2 (ONE-HALF)",
+			"87325111_30737165_30558528_18478055": "LIFE IS A PARTY",
+			"87325112_30737166_30558529_18478056": "빨간우산 (RED UMBRELLA)",
+			"87325113_30737167_30558530_18478057": "그루잠 (FALLING ASLEEP AGAIN)",
+			"87325114_30737168_30558531_18478058": "귀를 기울이면 (LOVE WHISPER) (Inst.)"
+		}
+	},{ 
+		"aid": "10043312",
+		"name": "THE AWAKENING - FINGERTIP",
+		"songs": {
+			"86991136_30573399_30285449_16473418": "바람의 노래 (Hear The Wind Sing)",
+			"86991137_30573400_30285450_16473420": "FINGERTIP",
+			"86991138_30573401_30285451_16473416": "비행운 : 飛行雲 (Contrail)",
+			"86991139_30573402_30285452_16473421": "나의 지구를 지켜줘 (Please Save My Earth)",
+			"86991140_30573403_30285453_16473419": "봄비 (Rain In The Spring Time)",
+			"86991141_30573404_30285454_16473422": "핑 (Crush)"
+		}
+	},{ 
+		"aid": "2696751",
+		"name": "LOL - 너 그리고 나",
+		"songs": {
+			"86427289_30315226_8262123_6200524": "INTRO (LOL)",
+			"86427290_30315227_8262124_6200528": "물들어요 (Fall in Love)",
+			"86427291_30315228_8262125_6200522": "너 그리고 나 (NAVILLERA)",
+			"86427292_30315229_8262126_6200529": "LOL",
+			"86427293_30315230_8262127_6200521": "한 뼘 (Distance)",
+			"86427294_30315231_8262128_6200527": "물꽃놀이 (Water Flower)",
+			"86427295_30315232_8262129_6200523": "Mermaid",
+			"86427296_30315233_8262130_6200526": "나의 일기장 (Sunshine)",
+			"86427297_30315234_8262131_6200525": "나침반 (Compas)",
+			"86427298_30315235_8262132_6200530": "찰칵 (Click)",
+			"86427299_30315236_8262133_6200531": "바람에 날려 (Gone with the wind)",
+			"86427300_30315237_8262134_6200532": "너 그리고 나 (NAVILLERA) (Inst.)"
+		}
+	},{ 
+		"aid": "2663668",
+		"name": "SNOWFLAKE - 시간을 달려서",
+		"songs": {
+			"85871513_30137631_8028700_5945467": "INTRO (Snowflake)",
+			"85871514_30137632_8028701_5945464": "시간을 달려서 (Rough)",
+			"85871515_30137633_8028702_5945468": "내 이름을 불러줘 (Say my name)",
+			"85871516_30137634_8028703_5945465": "사랑별 (Luv Star)",
+			"85871517_30137635_8028704_5945466": "그런 날엔 (Someday)",
+			"85871518_30137636_8028705_5945469": "TRUST",
+			"85871519_30137637_8028706_5945470": "시간을 달려서 (Inst.)"
+		}
+	},{ 
+		"aid": "2330981",
+		"name": "Flower Bud - 오늘부터 우리는",
+		"songs": {
+			"84581810_4479092_5791705_5525077": "Intro (Flower Bud)",
+			"84581811_4479093_5791706_5525076": "오늘부터 우리는 (Me Gustas Tu)",
+			"84630302_4479094_5791707_5525078": "하늘 아래서",
+			"84630303_4479095_5791708_5525075": "One",
+			"84630300_4479096_5791709_5525079": "기억해 (My Buddy)",
+			"84630301_4479097_5791710_5525080": "오늘부터 우리는 (Me Gustas Tu) (Inst.)"
+		}
+	},{ 
+		"aid": "2299776",
+		"name": "Season Of Glass - 유리구슬",
+		"songs": {
+			"83301113_3865991_5546487_4721607": "Intro (Season Of Glass)",
+			"83301112_3865992_5546489_4721604": "유리구슬 (Glass Bead)",
+			"83301111_3865993_5546491_4721608": "Neverland",
+			"83301110_3865994_5546493_4721603": "White (하얀마음)",
+			"83301109_3865995_5546495_4721609": "유리구슬 (Glass Bead) (Inst.)"
+		}
+	},{ 
+		"aid": "2015",
+		"name": "GFRIEND 2015 Songs",
+		"songs": {
+			"83803624_4277616_5650996_4918248": "우연히 봄",
+			"84592390_4471530_5785420_5513894": "난 널 사랑해 (7월의 크리스마스)",
+			"84645924_4482426_5794995_5529863": "심장이 없어 (7월의 크리스마스 & 한여름밤의 치맥파티) (Bonus Track)",
+			"85007544_4563912_7852747_5713787": "내품에 라바와 친구들",
+			"85007549_4563917_7852752_5713774": "통다리 토로롱",
+			"85007552_4563920_7852755_5713786": "I`ll Be There",
+			"85272690_30026594_7893709_5776114": "밤에 본 한강 (Feat. 은하 Of 여자친구)"
+		}
+	},{ 
+		"aid": "2016",
+		"name": "GFRIEND 2016 Songs",
+		"songs": {
+			"86029628_30175821_8081304_6012662": "이별로 오지마",
+			"86037250_30182338_8091963_6023390": "보일 듯 말 듯",
+			"86289256_30263521_8184472_6135388": "자격지심 (Feat. 은하 Of 여자친구)",
+			"86427711_4758572_8262122_6200512": "Je T`aime (SOS 해상구조대, 상큼한 산토리니)",
+			"86456143_4762561_8271417_6210195": "슬픔 속에 그댈 지워야만 해 (상큼한 산토리니)",
+			"86549242_4779919_9620106_6268157": "고백 (Feat. 시진)",
+			"86735891_30446513_30010908_6855550": "The Way",
+			"86662936_4797469_30032779_7748290": "반딧불이 (Firefly) (Feat. 릴보이 Of 긱스)",
+			"86669565_30419665_30039809_8457725": "미남 (미래남친) (Feat. 여자친구 예린)",
+			"86795051_30473526_30133403_15384684": "주머니 속 편지",
+			"86795053_30473528_30133405_15384686": "주머니 속 편지 (Full Ver.)"
+		}
+	},{ 
+		"aid": "2017",
+		"name": "GFRIEND 2017 Songs",
+		"songs": {
+			"87017241_30585986_30301652_16660206": "왜 또 봄이야",
+			"87457533_30795670_30653241_19177532": "사랑 ing",
+			"87513645_30825344_30688391_19416359": "하트시그널",
+			"87508341_30823651_30690836_19412835": "왼손 오른손",
+			"87527210_5029402_30710652_19433058": "오늘따라 예쁘다",
+			"87591989_30871450_30764674_20120657": "첫사랑"
+		}
+	},{ 
+		"aid": "2018",
+		"name": "GFRIEND 2018 Songs",
+		"songs": {
+			"88057483_31115400_31142007_21388158": "Wanna Be",
+			"88081155_31126602_31158345_21423712": "Love Rain (Feat. 수란)",
+			"88159997_31179135_31230349_21541818": "이 노래만",
+			"88239085_31229904_31299821_21719949": "So In Love",
+			"88265215_31251066_31329012_21922483": "Wow Thing",
+			"88363471_31304973_31414607_22546019": "벼락치기"
+		}
+	},{ 
+		"aid": "2019",
+		"name": "GFRIEND 2019 Songs",
+		"songs": {
+			"88496631_31386128_31515749_24838399": "눈꽃사랑",
+			"88575986_31435343_31583582_25375520": "말해줘요",
+			"88701960_31510281_31680709_26334503": "짠",
+			"88770321_31546083_31733856_26835853": "BLOSSOM",
+			"89021765_31610095_31843838_27311548": "Mr. Stranger"
+		}
+	},{ 
+		"aid": "2020",
+		"name": "GFRIEND 2020 Songs",
+		"songs": {
+			"89860008_31833576_32377902_39724259": "칵테일 사랑",
+			"90033161_31868315_32488077_39993072": "어서와",
+			"90038439_5881371_32491219_39999833": "이랬다 저랬다",
+			"90549469_31975102_32800394_41093333": "First Day",
+			"90745360_32004659_32887104_41852115": "Secret (Feat. ISHXRK)",
+			"90980841_32035300_32974338_42822638": "꿈인 듯 해"
+		}
+	},{ 
+	}
+] 
+}]; 
+
+//]]></script>
+
+
+</body>
+</html>
