@@ -75,7 +75,7 @@ body { font-size:15px; }
 		<div style="float:right; cursor: pointer; margin-right:5px; color: #FF3B28;" onclick="play(1);">♩벅스</div>
 		<div style="float:right; cursor: pointer; margin-right:5px; color: #0095FF;" onclick="play(0);">♬지니</a></div>
 	</div>
-	<div style="clear:both; width:270px; margin:2px; text-align:center; color:#5E0E6F; ">노래를 끌어담고 재생순서를 수정한 다음<br>이용중인 <span style="color: #0095FF;">♬음원앱♩</span>을 터치해주세요</div>
+	<div style="clear:both; width:270px; margin:2px; text-align:center; color:#5E0E6F; ">노래를 끌어담고 재생순서를 수정한 다음<br>이용중인 <span style="color: #0095FF;">♬음원앱♩</span>을 터치해주세요<br>스밍을 시작하면 플레이리스트가 저장됩니다</div>
 	<div id="cardSlots" style="background:#eee; width:312px; overflow-y:scroll;overflow-x:hidden;">
 		<ul id="playlist" style="height:800px;" class="ui-droppable ui-sortable"></ul>
 	</div>
@@ -98,6 +98,7 @@ function clearAll() {
 
 var favorites = JSON.parse(localStorage.getItem('favorites')) || [];
 function loadPlay() {
+	//alert(favorites);
 	favorites.forEach(function(id) {
 		var txt = $('#'+id).text();
 		var html = '<li class="ui-draggable filled"  data-id="' + id + '" style="display: inline-block;">' + txt + '</li>';
@@ -105,13 +106,16 @@ function loadPlay() {
 	});
 }
 function savePlay() {
+	if(localStorage)
+		localStorage.clear();
+	favorites = [];
 	$('#playlist li').each(function(e) {
 		var id = $(this).attr('data-id');
 		var pos = favorites.indexOf(id);
-		if (pos < 0)
+		//if (pos < 0)
 			favorites.push(id);
-		else
-			favorites.splice(pos, 1);
+		//else
+		//	favorites.splice(pos, 1);
 	});
 	//alert(favorites);
 
@@ -126,6 +130,7 @@ function play(i) {
 		var arr = str.split('_');
 		sid += arr[i] + ',';
 	});
+	savePlay();
 	playApp(i, sid);
 }
 
@@ -166,7 +171,7 @@ function addOption(aidx) {
 		$('#playlist').append(html);
 	});
 	$('#cardSlots').css('background-color','#F2F8E7');
-	savePlay();
+	
 }
 
 
@@ -248,7 +253,7 @@ function init() {
 					//$(ui.item).draggable("disable");
 			}
         },
-        out: function (event, ui) {  if (ui.helper) { ui.helper.attr('data-pos', 'out'); } },
+        out: function (event, ui) {  if (ui.helper) { ui.helper.attr('data-pos', 'out');  } },
         over: function (event, ui) { ui.helper.attr('data-pos', 'in'); }
     });
 }
