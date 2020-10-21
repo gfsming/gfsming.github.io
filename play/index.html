@@ -23,7 +23,12 @@
 ::-webkit-scrollbar-track { border-radius: 0px; background-color: #ffffff; }
 
 
-
+.transparent {
+	filter:alpha(opacity=90);
+	-moz-opacity:0.90;
+	-khtml-opacity: 0.90;
+	opacity: 0.90;
+}
 
 
 body { font-size:15px; }
@@ -69,13 +74,13 @@ body { font-size:15px; }
 <!--droppable-panel-start-->
 <div style="float:left;margin:-7px 0;">
 	<div style="padding-right:5px;  margin:7px 0 10px 0;font-size:15px;">
-		<div style="float:left;  cursor: pointer; color:#666;" onclick="clearAll();">◁◁ 모두삭제</div>
+		<div style="float:left;  cursor: pointer; color:#666;" onclick="clearAll();" id="iosDelete">◁◁ 모두삭제</div>
 		<div style="float:right; cursor: pointer; color: #5E0E6F;" onclick="play(3);">♩VIBE</div>
 		<div style="float:right; cursor: pointer; margin-right:5px; color: #00D344;" onclick="play(2);">♩멜론</div>
 		<div style="float:right; cursor: pointer; margin-right:5px; color: #FF3B28;" onclick="play(1);">♩벅스</div>
 		<div style="float:right; cursor: pointer; margin-right:5px; color: #0095FF;" onclick="play(0);">♬지니</a></div>
 	</div>
-	<div style="clear:both; width:270px; margin:2px; text-align:center; color:#5E0E6F; ">노래를 끌어담고 재생순서를 수정한 다음<br>이용중인 <span style="color: #0095FF;">♬음원앱♩</span>을 터치해주세요<br>스밍을 하면 플레이리스트가 저장됩니다</div>
+	<div style="clear:both; width:270px; margin:2px; text-align:center; color:#5E0E6F; ">노래를 끌어담고 재생순서를 수정한 다음<br>이용중인 <span style="color: #0095FF;">♬음원앱♩</span>을 터치해주세요<br>스밍을 시작하면 플레이리스트가 저장됩니다</div>
 	<div id="cardSlots" style="background:#eee; width:312px; overflow-y:scroll;overflow-x:hidden;">
 		<ul id="playlist" style="height:800px;" class="ui-droppable ui-sortable"></ul>
 	</div>
@@ -181,6 +186,10 @@ function showAlbum(aid) {
 }
 
 $( document ).ready(function() { 
+	var ua = navigator.userAgent;
+	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
+		$('#iosDelete').text('◀◀ 모두삭제');
+
 	init2();
 	init();
 	loadPlay();
@@ -268,9 +277,9 @@ function init2() {
 			if (album.aid)
 			{
 				html += '<div onclick=showAlbum("'+album.aid+'") class="album"><div class="tit">' + album.name + '</div><div onclick=addOption("'+album.aid+'") class="rbtn" alt="Add Album">담기 ▶</div></div>'; 
-				html += '<ul class="ui-draggable-container '+album.aid+'">'; 
+				html += '<ul class="ui-draggable-container '+album.aid+'" style="background-image:url(\''+album.bimg+'\');background-repeat:no-repeat;background-position:right top;background-size:contain;">'; 
 				$.each(album.songs, function (sid,song) {
-					html += '<li id="' + sid + '" class="ui-draggable">' + song + '</li>'; 
+					html += '<li id="' + sid + '" class="ui-draggable transparent">' + song + '</li>'; 
 				});
 				html += '</ul>'; 
 			}
@@ -286,6 +295,7 @@ var datum =  [{
 "albums": [
 	{ 
 		"aid": "",
+		"bimg": "",
 		"name": "",
 		"songs": {
 			"": "",
@@ -293,6 +303,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10459845",
+		"bimg": "https://cdnimg.melon.co.kr/cm2/album/images/104/59/845/10459845_20200713152520_1000.jpg",
 		"name": "回:Song of the Sirens - Apple",
 		"songs": {
 			"90512667_31967971_32772984_40903918": "Apple",
@@ -304,6 +315,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10383590",
+		"bimg": "https://cdnimg.melon.co.kr/cm2/album/images/103/83/590/10383590_20200203151505_1000.jpg",
 		"name": "回:LABYRINTH - 교차로",
 		"songs": {
 			"89818160_31821646_32351138_39664403": "Labyrinth",
@@ -315,6 +327,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10302011",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/103/02/011/10302011_1000.jpg",
 		"name": "FEVER SEASON - 열대야",
 		"songs": {
 			"89152397_31637330_31895208_27372467": "열대야(Fever)",
@@ -328,6 +341,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10242169",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/102/42/169/10242169_1000.jpg",
 		"name": "Time for us - 해야",
 		"songs": {
 			"88545599_31413840_31556500_25288919": "해야",
@@ -346,6 +360,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10186691",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/101/86/691/10186691_1000.jpg",
 		"name": "Sunny Summer - 여름여름해",
 		"songs": {
 			"88120012_31154135_31196764_21478467": "여름여름해 (Sunny Summer)",
@@ -356,6 +371,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10163106",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/101/63/106/10163106_1000.jpg",
 		"name": "Time for the moon night - 밤",
 		"songs": {
 			"87946016_31051969_31052420_21293077": "intro TFTMN",
@@ -369,6 +385,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10096067",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/100/96/067/10096067_1000.jpg",
 		"name": "RAINBOW - 여름비",
 		"songs": {
 			"87438613_30780757_30630736_18961102": "여름비 (SUMMER RAIN)",
@@ -377,6 +394,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10084442",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/100/84/442/10084442_1000.jpg",
 		"name": "PARALLEL - 귀를 기울이면",
 		"songs": {
 			"87325107_30737161_30558524_18478051": "INTRO (BELIEF)",
@@ -390,6 +408,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "10043312",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/100/43/312/10043312_1000.jpg",
 		"name": "THE AWAKENING - FINGERTIP",
 		"songs": {
 			"86991136_30573399_30285449_16473418": "바람의 노래 (Hear The Wind Sing)",
@@ -401,6 +420,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2696751",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/026/96/751/2696751_1000.jpg",
 		"name": "LOL - 너 그리고 나",
 		"songs": {
 			"86427289_30315226_8262123_6200524": "INTRO (LOL)",
@@ -418,6 +438,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2663668",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/026/63/668/2663668_1000.jpg",
 		"name": "SNOWFLAKE - 시간을 달려서",
 		"songs": {
 			"85871513_30137631_8028700_5945467": "INTRO (Snowflake)",
@@ -430,6 +451,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2330981",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/023/30/981/2330981_1000.jpg",
 		"name": "Flower Bud - 오늘부터 우리는",
 		"songs": {
 			"84581810_4479092_5791705_5525077": "Intro (Flower Bud)",
@@ -441,6 +463,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2299776",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/022/99/776/2299776_1000.jpg",
 		"name": "Season Of Glass - 유리구슬",
 		"songs": {
 			"83301113_3865991_5546487_4721607": "Intro (Season Of Glass)",
@@ -451,6 +474,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2015",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/023/12/287/2312287_1000.jpg",
 		"name": "GFRIEND 2015 Songs",
 		"songs": {
 			"83803624_4277616_5650996_4918248": "우연히 봄",
@@ -463,6 +487,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2016",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/026/71/231/2671231_1000.jpg",
 		"name": "GFRIEND 2016 Songs",
 		"songs": {
 			"86029628_30175821_8081304_6012662": "이별로 오지마",
@@ -479,6 +504,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2017",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/100/45/677/10045677_1000.jpg",
 		"name": "GFRIEND 2017 Songs",
 		"songs": {
 			"87017241_30585986_30301652_16660206": "왜 또 봄이야",
@@ -490,6 +516,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2018",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/101/78/090/10178090_1000.jpg",
 		"name": "GFRIEND 2018 Songs",
 		"songs": {
 			"88057483_31115400_31142007_21388158": "Wanna Be",
@@ -501,6 +528,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2019",
+		"bimg": "https://cdnimg.melon.co.kr/cm/album/images/102/63/631/10263631_1000.jpg",
 		"name": "GFRIEND 2019 Songs",
 		"songs": {
 			"88496631_31386128_31515749_24838399": "눈꽃사랑",
@@ -511,6 +539,7 @@ var datum =  [{
 		}
 	},{ 
 		"aid": "2020",
+		"bimg": "https://cdnimg.melon.co.kr/cm2/album/images/103/88/665/10388665_20200214170558_1000.jpg",
 		"name": "GFRIEND 2020 Songs",
 		"songs": {
 			"89860008_31833576_32377902_39724259": "칵테일 사랑",
