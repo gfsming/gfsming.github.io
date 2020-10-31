@@ -84,6 +84,10 @@ body { font-size:15px; }
 	<div id="cardSlots" style="background:#eee; width:312px; overflow-y:scroll;overflow-x:hidden;">
 		<ul id="playlist" style="height:800px;" class="ui-droppable ui-sortable"></ul>
 	</div>
+	<div>
+		<div id="gcon" style="float:left;  cursor: pointer; color:#666;" onclick="clearAll();addList('89818160,86991137,85871514,86427291,83301112,87438613,88120012,90512667,90512672,88545599,89818161,87946017,89818162');">2020 GFRIEND C:ON 플레이리스트 담기</div>
+		
+	</div>
 </div>
 <!--droppable-panel-end--> 
   
@@ -179,6 +183,19 @@ function addOption(aidx) {
 	
 }
 
+function addSong(sid) {
+	var o = $("[id^='"+sid+"_']")
+	var html = '<li class="ui-draggable filled"  data-id="' + o.attr('id') + '" style="display: inline-block;">' + o.text() + '</li>';
+	$('#playlist').append(html);
+	$('#cardSlots').css('background-color','#F2F8E7');
+}
+
+function addList(arrSid) {
+	var arr = arrSid.split(',');
+	for (var i=0;i<arr.length ;i++ )
+		addSong(arr[i]);
+}
+
 
 function showAlbum(aid) {
 	$('.ui-draggable-container').hide();
@@ -194,6 +211,16 @@ $( document ).ready(function() {
 	init();
 	loadPlay();
 	showAlbum('10459845');
+
+	
+	var url = location.href;
+	if (url.indexOf('#')>0)
+	{
+		var music = url.substring(url.indexOf('#') + 1, 1000);
+		if (music=='gcon')
+			$('#gcon').click();
+	}
+
 });
 
 function init() {
@@ -290,7 +317,7 @@ function init2() {
 
 }
 
-
+//	89818160,86991137,85871514,86427291,83301112,87438613,88120012,90512667,90512672,88545599,89818161,87946017,89818162
 var datum =  [{ 
 "albums": [
 	{ 
