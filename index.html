@@ -148,7 +148,7 @@ function ios(obj)
 {
 	var ua = navigator.userAgent;
 	var src = obj.getAttribute('href');
-	if (obj.id.toString()=='genie')	{
+	if (obj.id.toString().substring(0,5)=='genie')	{
 		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 			obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
 	}
@@ -251,6 +251,8 @@ https://gfsming.github.io/#_vibe_21293002
 <br><br>
 <div style="height:40px;">
 <a href="mp56.mp3" class="file" target="_blank" style="display:;"><b>N회용 무음 56분 mp3</b></a> 
+<a href="cromegenie://scan/?landing_type=31&landing_target=90512667;" id="genie1song" onclick="ios(this);" class="btn1" target="_blank">N회용 지니앱 재생</a>
+
 </div>
 <a href="mp20.mp3" class="file" target="_blank" style="display:;">20분 mp3</a> 
 <a href="mp10.mp3" class="file" target="_blank" style="display:;">10분 mp3</a> 
