@@ -148,19 +148,33 @@ function radio(num)
 		location.href = src + '?body=신청곡 여자친구 신곡 ';
 }
 
+function isDesktopOS(){
+	return ( 'win16|win32|win64|windows|mac|macintel|linux|freebsd|openbsd|sunos'.indexOf(navigator.platform.toLowerCase()) >= 0 );
+}
+
 function ios(obj)
 {
 	var ua = navigator.userAgent;
+	
 	var src = obj.getAttribute('href');
 	if (obj.id.toString().substring(0,5)=='genie')	{
 		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 			obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
+		else if (isDesktopOS())
+			window.open('https://www.genie.co.kr/player/shareProcessV2?xgnm='+src.substring(src.indexOf('target=')+7));
 	}
 	else {
 		if (ua.indexOf('iPhone') > 0)
 			obj.setAttribute('href', src.replace('melonapp','meloniphone'));
 		else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 			obj.setAttribute('href', src.replace('melonapp','melonipad'));
+		else if (isDesktopOS())
+		{
+			if (src.indexOf('elonapp') > 0)
+				obj.setAttribute('href', src.replace('ctype=1&menuid=0&cid=','cType=1&cList='));
+			else if (src.indexOf('ugs3:') > 0)
+				window.open('https://music.bugs.co.kr/newPlayer?trackId='+src.substring(src.indexOf('track_ids=')+10).replace(/\|/gi,','));
+		}
 	}
 }
 
@@ -226,7 +240,7 @@ https://gfsming.github.io/#_vibe_21293002
 
 <br><span style="font-size:20px;font-weight:bold;">여자친구 권장스밍 원터치 담기!</span> 
 <br><span style="font-size:15px;color:brown;">재생목록을 비우고, <strong>꼭 새로고침</strong> 후 터치하세요</span>
-<br><a href='javascript:void(0);' style="color:red;text-decoration:;font-weight:bold;"><span style="color:red;text-decoration:none;">7/27 유주 Feat. 신곡 추가 완료!</span></a>
+<br><a href='javascript:void(0);' style="color:red;text-decoration:;font-weight:bold;"><span style="color:red;text-decoration:none;">8/30 유주 OST신곡 추가 완료!</span></a>
 <br>
 <br>
 
@@ -257,7 +271,7 @@ https://gfsming.github.io/#_vibe_21293002
 -->
 <tr valign="top" align="center">
 <td>
-<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=91299354;93851522;93434601;91299355;91299356;91299357;91299358;91299359;91299360;91299354;91299364;90512667;89818161;87946017;86427291;85871514;84581811;83803624">Genie 권장스밍 담기</a>
+<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=94136297;91299354;94136297;93851522;93434601;91299355;91299356;91299357;91299358;91299359;91299360;91299364;90512667;89818161;87946017;86427291;85871514;84581811;83803624">Genie 권장스밍 담기</a>
 </td>
 </tr>
 </table>
@@ -273,15 +287,15 @@ https://gfsming.github.io/#_vibe_21293002
 
 <br><br>
 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=33048557,33730274,33542672,33532149,33249719,33218025,33214206,33146574,33086806,33048558,33048559,33048560,33048561,33048562,33048563,33048567,33048557,32772984,32351139,31052421,8262125,8028701,5791706,5650996,33048557,31895208,31556500,31196764,30630736,30558525,30285450,5546489">Melon 권장스밍 담기</a>
+<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=33048557,33730274,33542672,33532149,33249719,33218025,33214206,33872462,33146574,33086806,31052421,8262125,8028701,5791706,5650996">Melon 권장곡 담기</a>
+<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=33872462">중복곡 추가</a>
 
 <br><br>
 
-<a class="bugs" id="bugs" href="bugs3://app/tracks/lists?track_ids=6015405|32295823|6015406|6015407|6015408|6015409|6015410|6015411|32247917|6015415|31967971|31821647|31051970|30315228|30137632|4479093|4277616">Bugs 권장스밍 담기</a>
+<a class="bugs" id="bugs" onclick="ios(this);" href="bugs3://app/tracks/lists?track_ids=6127162|6015405|32295823|6015406|6015407|6015408|6015409|6015410|6015411|32247917|6015415|31967971|31821647|31051970|30315228|30137632|4479093|4277616">Bugs 권장스밍 담기</a>
 <br><br>
 
-<a class="vibe" id="vibe" href="vibe://listen?trackIds=43145722,50076333,48675745,48580759,44202598,44059304,44048998,43779768,43397409,40903918,21293002,39664398,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a>
-
+<a class="vibe" id="vibe" href="vibe://listen?trackIds=50580566,43145722,50076333,48675745,48580759,44202598,44059304,44048998,43779768,43397409,40903918,21293002,39664398,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a>
 
 <br><br>
 <a class="btn2" href="play">버디 폰으로 플레이리스트 선곡하기</a>
