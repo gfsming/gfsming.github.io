@@ -152,9 +152,13 @@ function playApp(i, src)
 		src = 'cromegenie://scan/?landing_type=31&landing_target=' + src.split(",").join(";");
 		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 			src = src.replace('cromegenie://scan','KTolleh00167://landing');
+		else if (isDesktopOS())
+			window.open('https://www.genie.co.kr/player/shareProcessV2?xgnm='+src.substring(src.indexOf('target=')+7));
 	}
 	else if (i==1) {
 		src = 'bugs3://app/tracks/lists?track_ids=' + src.split(",").join("|");
+		if (isDesktopOS())
+			window.open('https://music.bugs.co.kr/newPlayer?trackId='+src.substring(src.indexOf('track_ids=')+10).replace(/\|/gi,','),'_popBugs');
 	}
 	else if (i==2) {
 		src = 'melonapp://play?ctype=1&menuid=0&cid=' + src;
@@ -162,12 +166,18 @@ function playApp(i, src)
 			src = src.replace('melonapp','meloniphone');
 		else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
 			src = src.replace('melonapp','melonipad');
+		else if (isDesktopOS())
+			src = src.replace('ctype=1&menuid=0&cid=','cType=1&cList=');
 	}
 	else if (i==3) {
 		src = 'vibe://listen?trackIds=' + src;
 	}
 	//alert(src);
 	location.href = src;
+}
+
+function isDesktopOS(){
+	return ( 'win16|win32|win64|windows|mac|macintel|linux|freebsd|openbsd|sunos'.indexOf(navigator.platform.toLowerCase()) >= 0 );
 }
 
 
