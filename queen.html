@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ko">
+
+<meta charset="UTF-8">
+
+<head>
+<title>퀸덤2투표</title>
+</head>
+<body>
+
+<a target="_blank" href="https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld">자바스크립트 플러그인 설치</a><br>
+
+<pre>
+1. 플러그인 설치 후 크롬확장프로그램 시크릿 모드에 허용
+2. <a target="_blank" href="https://www.mnet.world/community/vote?voteId=ffC-YY3ye1XZoVJabOXi3">mnet.world 투표페이지</a> 이동
+3. 아래 스크립트 첫 줄에 tpick = 0 을 내가 투표할 다른 팀 숫자로 수정(1~5) 0은 비비지 선택 안하면 랜덤 투표
+3. 스크립트 전체선택(Ctrl+A) 후 복사(Ctrl+C) 저장
+4. 플러그인 누르고 Add new 붙여넣기(Ctrl+V) 후 Save 버튼
+5. 새 시크릿 창에서 투표 시작
+</pre>
+<textarea cols="80" rows="15">
+var tpick = 0;
+if (tpick==0)
+	tpick = Math.floor(( Math.random() * 4 )) + 1;
+
+$(document).ready(function(){
+	setTimeout(function() {
+		var url = location.href.toString();
+		if (url.indexOf('community/vote?voteId=') > 1) {
+			//alert($('#rci-vote__tab-info').hasClass('w--current'));
+			if ($('#rci-vote__tab-info').hasClass('w--current'))
+			{
+				$('#rci-vote__tab-vote').click();
+				setTimeout(function(){
+					$('.vote-common__box-check').eq(0).click();
+					setTimeout(function(){
+						//alert($('.alert__body__txt-body').text());
+						if ($('.alert__body__txt-body').text()=='투표에 참여하시려면 로그인이 필요합니다.')
+						{
+							$('.alert__btn2__txt-right').click();
+							setTimeout(function(){
+								$('.log-first__link-signup').click();
+								setTimeout(function(){
+									$('.sign-agree__box-check').eq(1).click();
+									$('.sign-agree__box-check').eq(2).click();
+									$('.sign-agree__box-check').eq(3).click();
+									setTimeout(function(){
+										$('.sign-agree__btn-next').click();
+									},1000);
+								},1000);
+							},1000);
+						}
+						else if ($('.alert__body__txt-body').text()=='커뮤니티 가입이 필요합니다.' && $('.anim__alert__box-main').parent().parent().hasClass('fade-in'))
+						{
+							$('.alert__btn2__txt-right').click();
+						}
+						else
+						{
+							$('.vote-common__box-check').eq(tpick).click();
+							setTimeout(function(){
+								$('.rc-vote__info__txt-vote').eq(1).click();
+								setTimeout(function(){
+									$('.vote-type2__txt-vote').click();
+								},1000);
+							},1000);
+						}
+					},1000);
+				},2000);
+			}
+			else if ($('#rci-vote__tab-vote').hasClass('w--current'))
+			{
+			}
+			else if ($('#rci-vote__tab-result').hasClass('w--current'))
+			{
+			}
+		}
+	},1000);
+});
+</textarea>
+
+<br>
+
+</div>
+</body>
+</html>
