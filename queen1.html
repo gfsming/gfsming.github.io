@@ -51,10 +51,7 @@ def doScrollDown(whileSeconds):
 			break
 
 options = webdriver.ChromeOptions()
-options.add_argument('window-size=870x700')
 options.add_argument("disable-gpu")
-options.add_argument("user-agent=Mozilla/5.0 (Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36")
-options.add_argument("lang=ko_KR")
 
 err = email.split(',')
 prr = psswd.split(',')
@@ -67,6 +64,7 @@ for v in range(0,len(err)):
 		pss = prr[v]
 	if (tpick==0):
 		tpick = int(random.randint(1, 5))
+	print(eid, tpick)
 
 	driver = webdriver.Chrome('chromedriver', chrome_options=options)
 	driver.set_window_size(200, 2000)
