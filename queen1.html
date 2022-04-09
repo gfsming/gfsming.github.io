@@ -20,6 +20,10 @@
 </pre>
 <textarea cols="80" rows="15">
 
+tpick = 0 # 1 ~ 5까지 수자 0이면 랜덤
+email = '이메일주소 콤마로 연결' # Email1,Email2,Email3....
+psswd = '공통 비밀번호' # 공통 비밀번호 또는 비번1,비번2,비번3.... 
+
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -30,10 +34,6 @@ from selenium.webdriver.common.keys import Keys
 import datetime
 import time
 import random
-
-tpick = 0
-email = 'djejck5@gmail.com,dpqwns@gmail.com'
-psswd = 'gfbuddy7&,gfbuddy7&'
 
 def doScrollDown(whileSeconds):
 	start = datetime.datetime.now()
@@ -59,12 +59,11 @@ for v in range(0,len(err)):
 		pss = psswd
 	else:
 		pss = prr[v]
-
 	if (tpick==0):
-		tpick = random.randint(1, 5)
+		tpick = int(random.randint(1, 5))
 
-	driver = webdriver.Chrome(r"d:\python\chromedriver.exe", chrome_options=options)
-	driver.set_window_size(300, 3000)
+	driver = webdriver.Chrome('chromedriver', chrome_options=options)
+	driver.set_window_size(200, 2000)
 	driver.get("https://www.mnet.world/community/vote?voteId=ffC-YY3ye1XZoVJabOXi3") 
 	driver.implicitly_wait(7)
 	time.sleep(2)
@@ -86,10 +85,12 @@ for v in range(0,len(err)):
 	time.sleep(4)
 	driver.find_elements_by_class_name('vote-common__box-check')[0].click()
 	time.sleep(3)
-	print(tpick)
-	doScrollDown(3)
-	driver.find_elements_by_class_name('vote-common__box-check')[int(tpick)].click()
+	if tpick > 2:
+		doScrollDown(3)
+	driver.find_elements_by_class_name('vote-common__box-check')[tpick].click()
 	time.sleep(3)
+	if tpick <= 2:
+		doScrollDown(3)
 	list = driver.find_elements_by_xpath("//*[text()='투표하기']")
 	list[1].click()
 	time.sleep(3)
@@ -101,6 +102,7 @@ for v in range(0,len(err)):
 	isleep = random.randint(1, 10)
 	time.sleep(10 + isleep)
 
+exit()
 </textarea>
 
 <br>
