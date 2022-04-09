@@ -8,15 +8,20 @@
 </head>
 <body>
 
-<a target="_blank" href="https://www.python.org/downloads/">파이썬 다운로드</a><br>
+<a target="_blank" href="https://www.python.org/downloads">파이썬 다운로드</a><br>
+<a target="_blank" href="https://chromedriver.chromium.org/downloads">크롬 드라이버 다운로드</a><br>
 
 <pre>
-1. 플러그인 설치 후 크롬확장프로그램 시크릿 모드에 허용
-2. <a target="_blank" href="https://www.mnet.world/community/vote?voteId=ffC-YY3ye1XZoVJabOXi3">mnet.world 투표페이지</a> 이동
-3. 아래 스크립트 첫 줄에 tpick = 0 을 내가 투표할 다른 팀 숫자로 수정(1~5) 0은 비비지 선택 안하면 랜덤 투표
-4. 스크립트 전체선택(Ctrl+A) 후 복사(Ctrl+C) 저장
-5. 상단 플러그인 아이콘 누르고 Add new 붙여넣기(Ctrl+V) 후 Save 버튼
-6. 새 시크릿 창에서 투표 시작
+1. 파이썬 다운로드 설치 후 <a target="_blank" href="">환경변수에 Path 추가</a>하고 윈도우 재시작
+2. 자신의 PC 크롬 버전에 맞는 드라이버 다운로드 (크롬 > 도움말 > Chrome 정보 에서 버전 확인)
+    chromedriver.exe를 압축 풀고 파이썬 설치 경로에 저장 (환경변수에 추가한 Path)
+3. 윈도우+R 키 누르고 cmd 입력 후 엔터, pip install selenium 엔터로 셀레니움 설치
+3. 스크립트 전체선택(Ctrl+A) 후 복사(Ctrl+C) 텍스트에디터 프로그램으로 붙여넣기해서 vote.py 파일로 저장
+4. vote.py 첫 줄에 tpick = 0 을 내가 투표할 다른 팀 숫자로 수정(1~5) 0이면 랜덤 투표
+5. 2번째 3번째 줄은 엠넷커뮤니티 회원가입한 이메일아이디와 비밀번호 입력
+6. 윈도우+R 키 누르고 cmd 입력 후 엔터, vote.py 파일이 있는 경로로 이동 (C:\Users\ 또는 D:\에 추천)
+7. py vote.py 입력 후 엔터치면 자동 투표 시작
+8. 중간에 오류발생 또는 아이디 단위를 끊어서 투표할 때 투표완료된 이메일아이디는 vote.py 소스에서 지워줘야 한다
 </pre>
 <textarea cols="80" rows="15">
 
