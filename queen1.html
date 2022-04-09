@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+
+<meta charset="UTF-8">
+
+<head>
+<title>퀸덤2투표</title>
+</head>
+<body>
+
+<a target="_blank" href="https://chrome.google.com/webstore/detail/user-javascript-and-css/nbhcbdghjpllgmfilhnhkllmkecfmpld">자바스크립트 플러그인 설치</a><br>
+
+<pre>
+1. 플러그인 설치 후 크롬확장프로그램 시크릿 모드에 허용
+2. <a target="_blank" href="https://www.mnet.world/community/vote?voteId=ffC-YY3ye1XZoVJabOXi3">mnet.world 투표페이지</a> 이동
+3. 아래 스크립트 첫 줄에 tpick = 0 을 내가 투표할 다른 팀 숫자로 수정(1~5) 0은 비비지 선택 안하면 랜덤 투표
+4. 스크립트 전체선택(Ctrl+A) 후 복사(Ctrl+C) 저장
+5. 상단 플러그인 아이콘 누르고 Add new 붙여넣기(Ctrl+V) 후 Save 버튼
+6. 새 시크릿 창에서 투표 시작
+</pre>
+<textarea cols="80" rows="15">
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.common.exceptions import TimeoutException
+from selenium.common.exceptions import NoSuchElementException        
+from selenium.webdriver.common.keys import Keys
+import datetime
+import time
+import random
+
+tpick = 0
+email = 'djejck5@gmail.com,dpqwns@gmail.com'
+psswd = 'gfbuddy7&,gfbuddy7&'
+
+def doScrollDown(whileSeconds):
+	start = datetime.datetime.now()
+	end = start + datetime.timedelta(seconds=whileSeconds)
+	while True:
+		driver.execute_script('window.scrollTo(0, document.body.scrollHeight);')
+		time.sleep(1)
+		if datetime.datetime.now() > end:
+			break
+
+options = webdriver.ChromeOptions()
+options.add_argument('window-size=870x700')
+options.add_argument("disable-gpu")
+options.add_argument("user-agent=Mozilla/5.0 (Win64 x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/95.0.4638.69 Safari/537.36")
+options.add_argument("lang=ko_KR")
+
+err = email.split(',')
+prr = psswd.split(',')
+
+for v in range(0,len(err)):
+	eid = err[v]
+	if len(prr) < 2:
+		pss = psswd
+	else:
+		pss = prr[v]
+
+	if (tpick==0):
+		tpick = random.randint(1, 5)
+
+	driver = webdriver.Chrome(r"d:\python\chromedriver.exe", chrome_options=options)
+	driver.set_window_size(300, 3000)
+	driver.get("https://www.mnet.world/community/vote?voteId=ffC-YY3ye1XZoVJabOXi3") 
+	driver.implicitly_wait(7)
+	time.sleep(2)
+	driver.find_element_by_id('rci-vote__tab-vote').click()
+	time.sleep(4)
+	driver.find_elements_by_class_name('vote-common__box-check')[0].click()
+	time.sleep(3)
+	list = driver.find_elements_by_xpath("//*[text()='Login']")
+	list[0].click()
+	time.sleep(3)
+	driver.find_elements_by_class_name('log-first__email__input')[0].send_keys(eid)
+	time.sleep(1)
+	driver.find_elements_by_class_name('log-first__pass__input')[0].send_keys(pss)
+	time.sleep(1)
+	list = driver.find_elements_by_xpath("//*[text()='로그인']")
+	list[0].click()
+	time.sleep(3)
+	driver.find_element_by_id('rci-vote__tab-vote').click()
+	time.sleep(4)
+	driver.find_elements_by_class_name('vote-common__box-check')[0].click()
+	time.sleep(3)
+	print(tpick)
+	doScrollDown(3)
+	driver.find_elements_by_class_name('vote-common__box-check')[int(tpick)].click()
+	time.sleep(3)
+	list = driver.find_elements_by_xpath("//*[text()='투표하기']")
+	list[1].click()
+	time.sleep(3)
+	doScrollDown(3)
+	list = driver.find_elements_by_xpath("//*[text()='투표하기']")
+	list[2].click()	
+	time.sleep(5)
+	driver.quit()
+	isleep = random.randint(1, 10)
+	time.sleep(10 + isleep)
+
+</textarea>
+
+<br>
+
+</div>
+</body>
+</html>
