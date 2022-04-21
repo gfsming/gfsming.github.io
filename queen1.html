@@ -86,11 +86,11 @@ for v in range(0,len(err)):
 	time.sleep(5)
 	driver.find_element_by_id('rci-vote__tab-vote').click()
 	time.sleep(4)
-	driver.find_elements_by_class_name('vote-common__box-check')[3].click()
+	driver.find_elements_by_class_name('vote-common__box-check')[2].click()
 	time.sleep(3)
 	if tpick > 2:
 		doScrollDown(4)
-	driver.find_elements_by_class_name('vote-common__box-check')[tpick].click()
+	driver.find_elements_by_class_name('vote-common__box-check')[3].click() #tpick
 	time.sleep(3)
 	if tpick <= 2:
 		doScrollDown(4)

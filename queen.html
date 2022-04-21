@@ -20,7 +20,7 @@
 6. 새 시크릿 창에서 투표 시작
 </pre>
 <textarea cols="80" rows="15">
-var tpick = 2;
+var tpick = 3;
 if (tpick==0)
 	tpick = Math.floor(( Math.random() * 4 )) + 1;
 
@@ -33,7 +33,7 @@ $(document).ready(function(){
 			{
 				$('#rci-vote__tab-vote').click();
 				setTimeout(function(){
-					$('.vote-common__box-check').eq(3).click();
+					$('.vote-common__box-check').eq(2).click();
 					setTimeout(function(){
 						//alert($('.alert__body__txt-body').text());
 						if ($('.alert__body__txt-body').text()=='투표에 참여하시려면 로그인이 필요합니다.')
