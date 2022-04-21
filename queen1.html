@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 
 <head>
-<title>py퀸덤2투표</title>
+<title>py퀸덤2차투표</title>
 </head>
 <body>
 
@@ -26,7 +26,7 @@
 </pre>
 <textarea cols="80" rows="15">
 
-twopick = 0 # 1 ~ 5까지 수자 0이면 랜덤
+twopick = 3 # 1 ~ 5까지 수자 0이면 랜덤
 email = '이메일주소 콤마로 연결' # Email1,Email2,Email3....
 psswd = '공통 비밀번호' # 공통 비밀번호 또는 비번1,비번2,비번3.... 
 
@@ -83,17 +83,17 @@ for v in range(0,len(err)):
 	time.sleep(1)
 	list = driver.find_elements_by_xpath("//*[text()='로그인']")
 	list[0].click()
-	time.sleep(3)
+	time.sleep(5)
 	driver.find_element_by_id('rci-vote__tab-vote').click()
 	time.sleep(4)
-	driver.find_elements_by_class_name('vote-common__box-check')[0].click()
+	driver.find_elements_by_class_name('vote-common__box-check')[3].click()
 	time.sleep(3)
 	if tpick > 2:
-		doScrollDown(3)
+		doScrollDown(4)
 	driver.find_elements_by_class_name('vote-common__box-check')[tpick].click()
 	time.sleep(3)
 	if tpick <= 2:
-		doScrollDown(3)
+		doScrollDown(4)
 	list = driver.find_elements_by_xpath("//*[text()='투표하기']")
 	list[1].click()
 	time.sleep(3)
