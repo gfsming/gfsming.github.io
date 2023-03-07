@@ -222,12 +222,8 @@ https://gfsming.github.io/#_vibe_21293002
 <br>
 -->
 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,5650996">Melon 1</a>
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,36090801">2</a> 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,36252193">3</a> 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,36252192">4</a> 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,36252190">5</a> 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36252188,36252186">6</a> 
+<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36090801,34544101,35172402,31052421,8262125,8028701,5791706,5650996">Melon 1</a>
+<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36090801,36090802,36090803,36090804,36090805,36090806,34614816,35374190">2</a> 
 <br>모두 눌러서 담아주세요
 
 <!--
@@ -259,7 +255,7 @@ https://gfsming.github.io/#_vibe_21293002
 -->
 <tr valign="top" align="center">
 <td>
-<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=;;100235634;;83803624">Genie 권장스밍</a>
+<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=100235634;100235635;100235636;100235637;100235638;100235639;95970683;97361868;100235634;95722050;96823621;87946017;86427291;85871514;84581811;83803624">Genie 권장스밍</a>
 &nbsp;
 <!--<a href="gfplay.smpl" id="genie1song" class="btn1" target="_blank">삼성뮤직 플리 다운</a>-->
 <br><br>
@@ -267,7 +263,7 @@ https://gfsming.github.io/#_vibe_21293002
 </tr>
 <tr>
 <td>
-<a class="bugs" id="bugs" onclick="ios(this);" href="bugs3://app/tracks/lists?track_ids=||6188783||4277616">Bugs 권장스밍</a>
+<a class="bugs" id="bugs" onclick="ios(this);" href="bugs3://app/tracks/lists?track_ids=6188783|6188784|6188785|6188786|6188787|6188788|6146245|6167619|6188783|6143935|6162244|31051970|30315228|30137632|4479093|4277616">Bugs 권장스밍</a>
 &nbsp;&nbsp;
 <a class="flo" href="http://flomuz.io/s/r.hGb2BAliC">FLO 플레이리스트</a>
 
@@ -291,7 +287,7 @@ https://gfsming.github.io/#_vibe_21293002
 <br>
 -->
 
-<a class="vibe" id="vibe" href="vibe://listen?trackIds=,,60437251,53658344,55706178,52865104,55167906,21293002,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a>
+<a class="vibe" id="vibe" href="vibe://listen?trackIds=60437251,60437252,53658344,55706178,52865104,55167906,21293002,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a>
 <!--
 <a class="spt" href="https://open.spotify.com/playlist/7nd2TdQYOSHQD4RvTTnorq?si=-llQvlqtR9Cns76g6gGIbw">Spotify Playlist</a>
 -->
