@@ -6,7 +6,7 @@ body {
 #content {
 	position: relative;
 	width: 100vw;
-	height: 100vb;
+	height: 100vh;
 }
 
 #dark-mode-container {
