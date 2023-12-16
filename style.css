@@ -1,3 +1,45 @@
+body {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+#content {
+	position: relative;
+	width: 100vw;
+	height: 100vb;
+}
+
+#dark-mode-container {
+	font-family: Arial;
+	position: fixed;
+	bottom: 15px;
+	right: 15px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#dark-mode-switch {
+	position: relative;
+	width: 50px;
+	height: 25px;
+	border-radius: 12.5px;
+	background-color: gray;
+}
+
+#dark-mode-btn {
+	outline: none;
+	position: absolute;
+	top: -2.5px;
+	width: 30px;
+	height: 30px;
+	border-radius: 15px;
+	background-color: whitesmoke;
+	border: 1px solid rgb(92, 92, 92);
+	cursor: pointer;
+	transition: all 0.5s;
+}
+
 #center {
 	text-align: center;
 }
@@ -182,7 +224,6 @@
 }
 
 .twit {
-	box-shadow: 0px 1px 0px 0px #f0f7fa;
 	background: linear-gradient(to bottom, #33bdef 5%, #019ad2 100%);
 	background-color: #33bdef;
 	border-radius: 6px;
