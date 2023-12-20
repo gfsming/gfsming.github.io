@@ -14,34 +14,43 @@
 
     <script>
         window.onload = function() {
+            // 다크모드 확인
+            const darkmode = localStorage.getItem("darkmode");
+            if (!darkmode) {
+                localStorage.setItem("darkmode","false");
+            }
+            else if (darkmode == "true") {
+                const darkBtn = document.getElementById(`dark-mode-btn`);
+                const switchDiv = document.getElementById(`dark-mode-switch`);
+
+                darkBtn.style.left = '25px';
+                darkBtn.style.backgroundColor = 'gray';
+                switchDiv.style.backgroundColor = `white`;
+                document.body.style.backgroundColor = `#373a3c`;
+                document.body.style.color = `#ddd`;
+                document.querySelector("#center > p:nth-child(18) > a").style.color = `#da8d00`;
+            }
+
             var ua = navigator.userAgent;
 
             var today = new Date().getDay();
             var txt = '';
-            if (today==4)
-                txt = '#2336 엠카 문투 원터치';
-            else if (today==6)
-                txt = '문자투표 #0505 음중';
-            txt = '';	// 문투 있을 때 주석처리
+            if (today==4) txt = '#2336 엠카 문투 원터치';
+            else if (today==6) txt = '문자투표 #0505 음중';
+            txt = ''; // 문투 있을 때 주석처리
             document.getElementById('sms').innerHTML = txt;
-            if (txt=='')
-                document.getElementById('vdiv').style.display = 'none';
-
+            if (txt=='') document.getElementById('vdiv').style.display = 'none';
+            
             var url = location.href;
             if (url.indexOf('#')>0)
             {
                 var music = url.substring(url.indexOf('#') + 1, 1000);
-                if (music.substring(0,4)=='vote')
-                {
-                    vote();
-                }
-                else if (music.substring(0,4)=='app_')
-                {
+                if (music.substring(0,4)=='vote') vote();
+                else if (music.substring(0,4)=='app_') {
                     music = music.substring(4,8);
                     // alert(music);
                     var url = '';
-                    if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-                    {
+                    if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
                         const musicForiPhoneURL = {
                             open: 'https://apps.apple.com/kr/app/id590379981',
                             whos: 'https://apps.apple.com/kr/app/id1473903262',
@@ -56,8 +65,7 @@
 
                         url = musicForiPhoneURL[music];
                     }
-                    else
-                    {
+                    else {
                         const musicForURL = {
                             open: `https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=ko`,
                             whos: 'https://play.google.com/store/apps/details?id=com.hanteo.whosfanglobal',
@@ -76,8 +84,7 @@
 
                     if (url!='') location.href = url;
                 }
-                else if (music.substring(0,1) == '_')
-                {
+                else if (music.substring(0,1) == '_') {
                     stype = music.substring(1,music.lastIndexOf('_'));
                     music = music.substring(music.lastIndexOf('_') + 1, 1000);
                     if (stype=='melon') {
@@ -113,10 +120,8 @@
 
             var src = 'sms:%23';
             var today = new Date().getDay();
-            if (today==4)
-                src += '2336';
-            else if (today==6)
-                src += '0505';
+            if (today==4) src += '2336';
+            else if (today==6) src += '0505';
             var ua = navigator.userAgent;
             if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
                 location.href = src + '&body=여자친구';
@@ -191,6 +196,7 @@
                 document.body.style.backgroundColor = `#373a3c`;
                 document.body.style.color = `#ddd`;
                 document.querySelector("#center > p:nth-child(18) > a").style.color = `#da8d00`;
+                localStorage.setItem("darkmode","true");
             }
             else {
                 darkBtn.style.left = '-2.5px';
@@ -199,6 +205,7 @@
                 document.body.style.backgroundColor = `white`;
                 document.body.style.color = `black`;
                 document.querySelector("#center > p:nth-child(18) > a").style.color = ``;
+                localStorage.setItem("darkmode","false");
             }
         }
     </script>
