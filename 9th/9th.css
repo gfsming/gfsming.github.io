@@ -1,0 +1,552 @@
+html {
+    scrollbar-color: #00abc0 rgba(0, 0, 0, 0.2);
+    background-color: whitesmoke;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+	font-family: Arial;
+    display: grid;
+    grid-template-rows: 35vh 1fr 500px;
+    width: 100vw;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    user-select: none;
+}
+
+@media (max-height: 714px) {
+    body {
+        grid-template-rows: 250px 1fr 500px;
+    }
+}
+
+body::-webkit-scrollbar {
+    background-color: rgba(0, 0, 0, 0.2);
+    width: 5px;
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: #00abc0;
+    border-radius: 2.5px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: #018a9c;
+}
+
+@keyframes textUp {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#header {
+    background: linear-gradient(rgba(0, 170, 255, 0.5), rgba(0, 170, 255, 0.5)), url("https://image.melon.co.kr/cm/album/images/022/99/776/2299776_org.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    position: relative;
+}
+
+#header-title {
+    font-weight: bold;
+    font-size: 45px;
+    animation-name: textUp;
+    animation-duration: 1s;
+}
+
+#header-number {
+    cursor: pointer;
+}
+
+@media (max-width: 500px) {
+    #header-title {
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+#header-desc {
+    font-style: 20px;
+    animation-name: textUp;
+    animation-duration: 1s;
+    padding-top: 10px;
+}
+
+#header-links {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    display: flex;
+}
+
+@media (max-width: 999px) {
+    #header-links {
+        width: 100vw;
+        left: 0;
+        justify-content: center;
+    }
+}
+
+.link-button {
+    font-family: Arial;
+    outline: none;
+    border: none;
+    background-color: whitesmoke;
+    height: 35px;
+    max-height: 35px;
+    border-radius: 17.5px;
+    cursor: pointer;
+    padding: 5px;
+    font-weight: bold;
+    display: inline-block;
+    vertical-align: baseline;
+}
+
+.link-button img {
+    margin-left: 2.5px;
+}
+
+.link-button::after {
+    font-family: Arial;
+    font-size: 15px;
+    display: inline-block;
+    max-width: 0;
+    transition: max-width .5s;
+    overflow: hidden;
+    vertical-align: baseline;
+    white-space: nowrap;
+}
+
+.twit-button::after {
+    content: "여친 음원팀 트위터";
+}
+
+.github-button::after {
+    content: "사이트 Github";
+}
+
+.mv-button::after {
+    content: "뮤직비디오";
+}
+
+.music-button::after {
+    content: "유튜브 음원";
+}
+
+.link-button:hover::after {
+    max-width: 150px;
+    transition: max-width 1s;
+}
+
+@media (max-width: 999px) {
+    .link-button::after {
+        max-width: 150px;
+        transition: max-width 1s;
+    }
+}
+
+#content {
+    margin-top: 50px;
+    display: grid;
+    grid-template-rows: 500px auto;
+}
+
+#history {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#history-content {
+    width: 300px;
+    min-height: 300px;
+    height: 300px;
+    background: linear-gradient(rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0.5)), url("https://image.melon.co.kr/cm/album/images/022/99/776/2299776_org.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    position: relative;
+}
+
+#history-line {
+    margin-top: -50px;
+    border-radius: 5px;
+    position: relative;
+    width: 150px;
+    min-height: 300px;
+    height: 300px;
+    overflow: hidden;
+    z-index: 1;
+    transform: rotate(270deg);
+}
+
+#history-line::before {
+    content: '';
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(to top,transparent 80%, whitesmoke);
+    z-index: 5;
+}
+
+#history-line::after {
+    content: '';
+    width: 100%;
+    height: 100%;    
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: linear-gradient(transparent 80%, whitesmoke);
+    z-index: 5;
+}
+
+#history-line-bg {
+    margin-left: 25px;
+    position: relative;
+    background-color: #00abc0;
+    border: 5px solid white;
+    width: 50px;
+    height: 1860px;
+    border-radius: 30px;
+    transition: all .5s ease-in-out;
+    top: 0;
+}
+
+.history-line-btn {
+    left: -10px;
+    position: absolute;
+    outline: none;
+    border: none;
+    width: 70px;
+    height: 70px;
+    border: 5px solid white;
+    border-radius: 40px;
+    background-color: #5f4b8b;
+    z-index: 7;
+    cursor: pointer;
+}
+
+.history-line-btn span {
+    position: absolute;
+    top: 50%;
+    left: 35px;
+    transform: translateY(-50%) rotate(-270deg);
+    font-size: 16px;
+    font-family: Arial;
+    font-weight: bold;
+}
+
+#history-title {
+    margin-top: 25px;
+    margin-left: 25px;
+    white-space: pre-line;
+    font-weight: bold;
+    font-style: italic;
+    cursor: pointer;
+}
+
+#history-btn-container {
+    position: absolute;
+    left: 25px;
+    bottom: 25px;
+    display: flex;
+    align-items: center;
+}
+
+@media (min-width: 1000px) {
+    #history {
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
+    #history-content {
+        width: 500px;
+        height: 500px;
+        border: 3px solid black;
+        border-radius: 5px;
+        border-right: 0;
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+        padding-bottom: 15px;
+        padding-top: 15px;
+    }
+
+    #history-line {
+        width: 300px;
+        height: 500px;
+        margin-top: 0;
+        padding-left: 75px;
+        transform: none;
+        border: 3px solid black;
+        border-radius: 5px;
+        border-left: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        padding-bottom: 15px;
+        padding-top: 15px;
+    }
+
+    .history-line-btn span {
+        top: 50%;
+        left: 75px;
+        transform: translateY(-50%);
+        font-size: 25px;
+    }
+}
+
+#sming {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 1px solid gray;
+    font-weight: bold;
+}
+
+#sming-title {
+    font-size: 20px;
+}
+
+#sming-warning {
+    color: crimson;
+}
+
+@media (max-width: 350px) {
+    #sming-warning {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#sming-container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#sming-melon {
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border: 3px solid #00cd3b;
+    border-radius: 3px;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.sming-melon-a {
+    width: 200px;
+    height: 35px;
+    outline: none;
+    border: none;
+    background-color: #00e742;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+}
+
+.sming-melon-a:hover {
+    background-color: #00cd3b;
+}
+
+#sming-etc {
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border: 3px solid orange;
+    border-radius: 3px;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#sming-genie, #sming-bugs, #sming-vibe {
+    width: 200px;
+    height: 35px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+}
+
+#sming-genie {
+    background-color: #0095ff;
+}
+
+#sming-genie:hover {
+    background-color: #0184e2;
+}
+
+#sming-bugs {
+    background-color: #ff3b28;
+    margin-top: 15px;
+}
+
+#sming-bugs:hover {
+    background-color: #df3425;
+}
+
+#sming-vibe {
+    background-color: #ED0B43;
+    margin-top: 15px;
+}
+
+#sming-vibe:hover {
+    background-color: #cc0c3c;
+}
+
+#mp3 {
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border: 3px solid #00aaff;
+    border-radius: 3px;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#mp3 a {
+    width: 200px;
+    height: 35px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    background-color: #00aaff;
+}
+
+#mp3 a:hover {
+    background-color: #009eec;
+}
+
+#mv {
+    width: 250px;
+    height: 200px;
+    padding: 5px;
+    border: 3px solid #ff0000;
+    border-radius: 3px;
+    margin: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#mv a {
+    width: 200px;
+    height: 35px;
+    outline: none;
+    border: none;
+    text-decoration: none;
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    color: black;
+    background-color: #ff0000;
+}
+
+#mv a:hover {
+    background-color: #d60000;
+}
+
+#footer {
+    border-top: 1px solid gray;
+    padding-top: 35px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: bold;
+}
+
+#footer a {
+    text-decoration: none;
+    color: #00abc0;
+}
+
+@media (max-width: 370px) {
+    #footer-9th {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+#quick-bar {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(0, 170, 255, 0.75);
+    height: 25px;
+    border: 1px solid rgba(128, 128, 128, 0.75);
+    padding: 5px;
+    z-index: 15;
+}
+
+.quick-bar-line {
+    width: 1px;
+    height: 35px;
+    background-color: rgba(128, 128, 128, 0.75);
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+#quick-bar button {
+    background-color: transparent;
+    border: none;
+    outline: none;
+    padding: 0;
+    cursor: pointer;
+}
