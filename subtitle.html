@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en" style="width:100%;height:100%">
+<head>
+<meta charset="UTF-8">
+<meta name="Generator" content="EditPlus®">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>자막 변환</title>
+<script>
+
+function erasetext(word) {
+
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+
+	var otxt = t1.value;
+	if (!word)
+	{
+		var etxt = otxt.replace(/\([^)]*\)/g, '');
+		t2.value = etxt;
+	}
+	else if (word.length < 2)
+	{
+		var etxt = otxt.replace(/[\t]+/g,' ').replace(/ {2,}/g, ' ').replace(/ +$/gm, '').replace(/\.+$/gm, '').replace(/\,+$/gm, '');//.replace(/\?+$/gm, '');
+		t2.value = etxt;
+//		var etxt = otxt.replace('\t',' ').replace(/ {2,}/g, ' ').replace(' \n','\n').replace(' \r','\n').replace('. \n','\n').replace(', \n','\n').replace(',\n','\n').replace('.\n','\n').replace('? \n','\n').replace('?\n','\n').replace('? \r','\r').replace('?\r','\r');
+		t2.value = etxt;
+	}
+	else
+	{
+		t1.value = otxt.replace(word,'');
+	}
+
+//.replace(/[\n\r]+/g, ' ')
+
+}
+
+function conAssSrt() {
+
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+
+	var otxt = t1.value;
+	var etxt = otxt.replace(/\([^)]*\)/g, '');
+	t2.value = etxt;
+
+}
+
+function syncSub() {
+
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+
+	var otxt = t1.value;
+	var etxt = otxt.replace(/\([^)]*\)/g, '');
+	t2.value = etxt;
+
+}
+</script>
+</head>
+<body style="width:100%;height:100%">
+
+<button onclick="erasetext()">괄호 삭제</button>
+&nbsp;
+<button onclick="erasetext('.')">문장 끝 ,. 삭제</button>
+&nbsp;
+<button onclick="conAssSrt()">ASS <> SRT 자막 변환</button>
+&nbsp;
+<button onclick="syncSub()">싱크 늘리기</button>
+앞<input type="text" size="1" maxlength="2" value="0" id="tpre"/>
+뒤<input type="text" size="1" maxlength="2" value="0" id="tnext"/>
+millisecond (소수점 첫자리만 또는 둘째 자리까지 입력)
+
+<div style="width:94%;height:95%; display:flex;flex-direction:row;border:1px solid #000000;overflow:hidden;">
+
+<textarea id="txt1" style="width:50%;height:100%" onfocus="erasetext('원본 자막 붙여넣고 버튼을 누르세요')">원본 자막 붙여넣고 버튼을 누르세요</textarea>
+
+<textarea id="txt2" style="width:50%;height:100%;background-color:#eeeeee;" readonly="readonly">변환된 자막을 전체 복사하세요</textarea>
+
+</div>
+
+</body>
+</html>
