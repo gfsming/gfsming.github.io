@@ -131,6 +131,9 @@ function conAssSrt()
 				stime = s.substring(s.length-12,10000);
 				stime = stime.substring(1,11);
 
+				if (stime < etime)
+					stime = etime;
+
 				tt = s.substring(13,s.lastIndexOf('\n')-1);
 				tt = tt.substring(0,tt.lastIndexOf('\n')-1);
 				ret = ret + ',' + etime.replace(',','.') + ',,,0,0,0,,' + tt.replace(/\n/g,'\\N') + '\nDialogue: 0,' + stime.replace(',','.');
