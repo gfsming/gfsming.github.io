@@ -42,9 +42,14 @@ function erasetext(word) {
 	var otxt = t1.value;
 	if (!word)
 	{
-		var etxt = otxt.replace(/\([^)]*\)/g, '');
-		t2.value = etxt;
-		ck.value = '() 괄호 안 내용이 삭제되었습니다';
+		if (otxt.indexOf('(') > 0 && otxt.indexOf(')') > 0)
+		{
+			var etxt = otxt.replace(/\([^)]*\)/g, '');
+			t2.value = etxt;
+			ck.value = '() 괄호 안 내용이 삭제되었습니다';
+		}
+		else
+			ck.value = '삭제할 괄호가 없습니다';
 	}
 	else if (word.length < 2)
 	{
@@ -317,7 +322,7 @@ millisecond (소수점 둘째 자리까지만 입력 가능)
 <table style="width:100%;height:100%;border:0px solid #FFFFFF;" border="0">
 <tr style="height:30px">
 <td style="width:50%">
-	<input type="text" id="chk" style="width:95%;background-color:#eeeeee;border:0px solid #FFFFFF;" readonly="readonly"/>
+	<input type="text" id="chk" style="width:95%;background-color:#eeeeee;color:red;text-decoration:bold;border:0px solid #FFFFFF;" readonly="readonly"/>
 </td>
 <td style="width:50%">
 	<button onclick="copyToClipboard()">전체 내용 복사</button>
