@@ -302,6 +302,12 @@ function syncSub()
 		alert('싱크를 늘릴 자막을 붙여넣기하세요');
 	}
 }
+
+
+function conWord() 
+{
+	alert('아직 작동되지 않습니다');
+}
 </script>
 </head>
 <body style="width:100%;height:100%">
@@ -310,11 +316,13 @@ function syncSub()
 &nbsp;
 <button onclick="erasetext('.')">문장 끝 ,. 삭제</button>
 &nbsp;
+<button onclick="conWord()">기계번역 대화체로</button>
+&nbsp;
 <button onclick="conAssSrt()">ASS <> SRT 자막 변환</button>
 &nbsp;
 <button onclick="syncSub()">앞뒤 싱크 늘리기</button>
-앞.<input type="text" size="1" maxlength="2" value="0" id="sync1"/>
-뒤.<input type="text" size="1" maxlength="2" value="0" id="sync2"/>
+앞.<input type="text" size="1" maxlength="2" value="00" id="sync1"/>
+뒤.<input type="text" size="1" maxlength="2" value="00" id="sync2"/>
 millisecond (소수점 둘째 자리까지만 입력 가능)
 
 &nbsp;
