@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en" style="width:100%;height:100%">
+<head>
+<meta charset="UTF-8">
+<meta name="Generator" content="EditPlus®">
+<meta name="Author" content="">
+<meta name="Keywords" content="">
+<meta name="Description" content="">
+<title>자막 변환</title>
+<script>
+String.prototype.zfill = function(width) {
+    const currentLength = this.length;
+    if (currentLength >= width) {
+        return this.toString(); // No need to fill if the current length is equal or greater than the specified width
+    } else {
+        const zerosToAdd = width - currentLength;
+        const zeros = '0'.repeat(zerosToAdd);
+        return zeros + this.toString();
+    }
+};
+function copyToClipboard() {
+	var ck = document.getElementById('chk');
+	var txt = document.getElementById("txt2");
+
+	if (txt == '변환된 자막을 전체 복사하세요')
+	{
+		alert('복사할 내용이 부족합니다');
+	}
+	else
+	{
+		txt.select();
+		document.execCommand('copy');
+		ck.value = '클립보드로 복사되었습니다';
+	}
+}
+
+function erasetext(word) {
+	var ck = document.getElementById('chk');
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+
+	var otxt = t1.value;
+	if (!word)
+	{
+		if (otxt.indexOf('(') > 0 && otxt.indexOf(')') > 0)
+		{
+			var etxt = otxt.replace(/\([^)]*\)/g, '');
+			t2.value = etxt;
+			ck.value = '() 괄호 안 내용이 삭제되었습니다';
+		}
+		else
+			ck.value = '삭제할 괄호가 없습니다';
+	}
+	else if (word.length < 2)
+	{
+		var etxt = otxt.replace(/[\t]+/g,' ').replace(/ {2,}/g, ' ').replace(/ +$/gm, '').replace(/\.+$/gm, '').replace(/\,+$/gm, '');//.replace(/\?+$/gm, '');
+		t2.value = etxt;
+		ck.value = '문장 끝 ,. 구두점이 삭제되었습니다';
+	}
+	else
+	{
+		t1.value = otxt.replace(word,'');
+		ck.value = '';
+	}
+
+//.replace(/[\n\r]+/g, ' ')
+
+}
+
+function conAssSrt() 
+{
+	var ck = document.getElementById('chk');
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+	var ret = '';
+
+	var otxt = t1.value;
+	if (otxt.indexOf('Dialogue:') > 1)
+	{
+		var arr = otxt.split('Dialogue: ');
+		for (var i=0; i < arr.length; i++)
+		{
+			var s = arr[i];
+			if (i > 0)
+			{
+				ret = ret + i.toString() + '\n';
+				trr = s.split(',');
+				a = trr[1];
+				b = trr[2];
+				c = s.substring(s.indexOf('0,0,0,,')+7,10000);
+				c = c.replace('\\N','\n');
+
+				ret = ret + '0' + a.replace('.',',') + '0 --> ' + '0' + b.replace('.',',') + '0\n';
+				ret = ret + c.replace('.','') + '\n';
+			}
+		}
+		t2.value = ret;
+		ck.value = 'SRT 형식으로 변환되었습니다';
+	}
+	else if (otxt.indexOf(' --> ') > 1)
+	{
+		var arr = otxt.split(' --> ');
+		for (var i=0; i < arr.length; i++)
+		{
+			var s = arr[i];
+
+			if (i == 0)
+			{
+				stime = s.substring(s.length-12,10000);
+				stime = stime.substring(1,11);
+
+				ret = 'Dialogue: 0,' + stime.replace(',','.');
+			}
+			else if (i == arr.length - 1)
+			{
+				a = s.substring(0,12); // srt 숫자에 9를 더한 다음 마지막 자리만 떼낸다
+				aa = Number(a.substring(0,2)) * 60 * 60 * 1000 + Number(a.substring(3,5)) * 60 * 1000 + Number(a.substring(6,8)) * 1000 + Number(a.substring(9,12)) + 9;
+				aaa = (Math.floor(aa/3600000)).toString().zfill(2) + ':' + Math.floor((aa%3600000)/60000).toString().zfill(2) + ':' + Math.floor((aa%60000)/1000).toString().zfill(2) + ',' + (aa%1000).toString().zfill(3);
+				etime = aaa.substring(1,11);
+
+				tt = s.substring(13,s.lastIndexOf('\n')-1);
+				ret = ret + ',' + etime.replace(',','.') + ',,,0,0,0,,' + tt.replace(/\n/g,'\\N');
+			}
+			else
+			{
+				a = s.substring(0,12); // srt 숫자에 9를 더한 다음 마지막 자리만 떼낸다
+				aa = Number(a.substring(0,2)) * 60 * 60 * 1000 + Number(a.substring(3,5)) * 60 * 1000 + Number(a.substring(6,8)) * 1000 + Number(a.substring(9,12)) + 9;
+				aaa = (Math.floor(aa/3600000)).toString().zfill(2) + ':' + Math.floor((aa%3600000)/60000).toString().zfill(2) + ':' + Math.floor((aa%60000)/1000).toString().zfill(2) + ',' + (aa%1000).toString().zfill(3);
+				etime = aaa.substring(1,11);
+
+				stime = s.substring(s.length-12,10000);
+				stime = stime.substring(1,11);
+
+				if (stime < etime)
+					etime = stime;
+
+				tt = s.substring(13,s.lastIndexOf('\n')-1);
+				tt = tt.substring(0,tt.lastIndexOf('\n')-1);
+				ret = ret + ',' + etime.replace(',','.') + ',,,0,0,0,,' + tt.replace(/\n/g,'\\N') + '\nDialogue: 0,' + stime.replace(',','.');
+
+			}
+		}
+
+
+		var ass = '[Script Info]';
+		ass += '\nTitle: ';
+		ass += '\nScriptType: v4.00+';
+		ass += '\nPlayDepth: 0';
+		ass += '\nScaledBorderAndShadow: Yes';
+		ass += '\n';
+		ass += '\n[V4+ Styles]';
+		ass += '\nFormat: Name, Fontname, Fontsize, PrimaryColour, SecondaryColour, OutlineColour, BackColour, Bold, Italic, Underline, StrikeOut, ScaleX, ScaleY, Spacing, Angle, BorderStyle, Outline, Shadow, Alignment, MarginL, MarginR, MarginV, Encoding';
+		ass += '\nStyle: Default,Arial,24.0,&H00FFFFFF,&H0000FFFF,&H00000000,&H00000000,0,0,0,0,100,100,0,0,1,1,1,2,10,10,10,1';
+		ass += '\n';
+		ass += '\n[Events]';
+		ass += '\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text';
+
+
+		t2.value = ass + '\n' + ret;
+		ck.value = 'ASS 형식으로 변환되었습니다';
+	}
+	else
+	{
+		alert('변환할 자막을 붙여넣기하세요');
+	}
+
+}
+
+function syncSub() 
+{
+	var ck = document.getElementById('chk');
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+	var otxt = t1.value;
+	var ret = '';
+
+	var sync1 = document.getElementById('sync1').value;
+	var sync2 = document.getElementById('sync2').value;
+	sync1 = Number(sync1);
+	sync2 = Number(sync2);
+
+	if (otxt.indexOf('Dialogue:') > 1)
+	{
+		var arr = otxt.split(',0:');
+		aa = 0;
+		bb = 0;
+		for (var i=arr.length-1; i >= 0; i--)
+		{
+			var s = arr[i];
+			if (i==0)
+			{
+				ret = s + ",0:" + ret;
+			}
+			else if (i==1)
+			{
+				b = s.substring(0,8);
+				bb = Number(b.substring(0,2)) * 60 * 100 + Number(b.substring(3,5)) * 100 + Number(b.substring(6,8));
+				bb = bb - sync1;
+				bbb = (Math.floor(bb/6000)).toString().zfill(2) + ':' + Math.floor((bb%6000)/100).toString().zfill(2) + '.' + (bb%100).toString().zfill(2);
+				s = s.replace(b,bbb);
+				ret = s + ",0:" + ret;
+			}
+			else if (i==arr.length-1)
+			{
+				a = s.substring(0,8);
+				aa = Number(a.substring(0,2)) * 60 * 100 + Number(a.substring(3,5)) * 100 + Number(a.substring(6,8));
+				aa = aa + sync2;
+				aaa = (Math.floor(aa/6000)).toString().zfill(2) + ':' + Math.floor((aa%6000)/100).toString().zfill(2) + '.' + (aa%100).toString().zfill(2);
+				s = s.replace(a,aaa);
+				ret = s + ret;
+
+			}
+			else if (i%2==0)
+			{
+				a = s.substring(0,8);
+				aa = Number(a.substring(0,2)) * 60 * 100 + Number(a.substring(3,5)) * 100 + Number(a.substring(6,8));
+				if (aa < bb - sync2)
+					aa = aa + sync2;
+				else
+					aa = bb;
+
+				aaa = (Math.floor(aa/6000)).toString().zfill(2) + ':' + Math.floor((aa%6000)/100).toString().zfill(2) + '.' + (aa%100).toString().zfill(2);
+				s = s.replace(a,aaa);
+				ret = s + ",0:" + ret;
+
+			}
+			else if (i%2==1)
+			{
+				a = arr[i-1].substring(0,8);
+				aa = Number(a.substring(0,2)) * 60 * 100 + Number(a.substring(3,5)) * 100 + Number(a.substring(6,8));
+				b = s.substring(0,8);
+				bb = Number(b.substring(0,2)) * 60 * 100 + Number(b.substring(3,5)) * 100 + Number(b.substring(6,8));
+
+				if (bb > aa + sync1)
+					bb = bb - sync1;
+				else
+					bb = aa;
+
+				bbb = (Math.floor(bb/6000)).toString().zfill(2) + ':' + Math.floor((bb%6000)/100).toString().zfill(2) + '.' + (bb%100).toString().zfill(2);
+				s = s.replace(b,bbb);
+				ret = s + ",0:" + ret;
+			}
+		}
+		t2.value = ret;
+		ck.value = '앞뒤 싱크를 늘렸습니다';
+	}
+	else if (otxt.indexOf(' --> ') > 1)
+	{
+		sync1 = sync1 * 10;
+		sync2 = sync2 * 10;
+		var arr = otxt.split(' --> ');
+		for (var i=0; i < arr.length; i++)
+		{
+			var s = arr[i];
+
+			a = s.substring(0,12);
+			a = a.substring(3,100);
+			b = s.substring(s.length-9,10000);
+
+			ss = ''
+			if (i==0)
+			{
+				bb = Number(b.substring(0,2)) * 60 * 1000 + Number(b.substring(3,5)) * 1000 + Number(b.substring(6,9)) - sync1;
+				bbb = (Math.floor(bb/60000)).toString().zfill(2) + ':' + Math.floor((bb%60000)/1000).toString().zfill(2) + ',' + (bb%1000).toString().zfill(3);
+				s = s.replace(b,bbb);
+			}
+			else if (i==arr.length-1)
+			{
+				aa = Number(a.substring(0,2)) * 60 * 1000 + Number(a.substring(3,5)) * 1000 + Number(a.substring(6,9)) + sync2;
+				aaa = (Math.floor(aa/60000)).toString().zfill(2) + ':' + Math.floor((aa%60000)/1000).toString().zfill(2) + ',' + (aa%1000).toString().zfill(3);
+				s = s.replace(a,aaa);
+				ret = ret + ' --> ';
+			}
+			else 
+			{
+				aa = Number(a.substring(0,2)) * 60 * 1000 + Number(a.substring(3,5)) * 1000 + Number(a.substring(6,9));
+				bb = Number(b.substring(0,2)) * 60 * 1000 + Number(b.substring(3,5)) * 1000 + Number(b.substring(6,9));
+
+				if (bb > aa + sync1)
+					bb = bb - sync1;
+				else
+					bb = aa;
+
+				if (aa < bb - sync2)
+					aa = aa + sync2;
+				else
+					aa = bb;
+
+				aaa = (Math.floor(aa/60000)).toString().zfill(2) + ':' + Math.floor((aa%60000)/1000).toString().zfill(2) + ',' + (aa%1000).toString().zfill(3);
+				bbb = (Math.floor(bb/60000)).toString().zfill(2) + ':' + Math.floor((bb%60000)/1000).toString().zfill(2) + ',' + (bb%1000).toString().zfill(3);
+			
+				s = s.replace(a,aaa).replace(b,bbb);
+				ret = ret + ' --> ';
+			}
+			ret = ret + s;
+		}
+		t2.value = ret;
+		ck.value = '앞뒤 싱크를 늘렸습니다';
+	}
+	else
+	{
+		alert('싱크를 늘릴 자막을 붙여넣기하세요');
+	}
+}
+
+
+</script>
+</head>
+<body style="width:100%;height:100%">
+
+<button onclick="erasetext()">괄호 삭제</button>
+&nbsp;
+<button onclick="erasetext('.')">문장 끝 ,. 삭제</button>
+&nbsp;
+<button onclick="conAssSrt()">ASS <> SRT 자막 변환</button>
+&nbsp;
+<button onclick="syncSub()">앞뒤 싱크 늘리기</button>
+앞.<input type="text" size="1" maxlength="2" value="00" id="sync1"/>
+뒤.<input type="text" size="1" maxlength="2" value="00" id="sync2"/>
+millisecond (소수점 둘째 자리까지만 입력 가능)
+
+&nbsp;
+&nbsp;
+
+<div style="width:94%;height:95%; display:flex;flex-direction:row;border:0px solid #000000;overflow:hidden;">
+
+<table style="width:100%;height:100%;border:0px solid #FFFFFF;" border="0">
+<tr style="height:30px">
+<td style="width:50%">
+	<input type="text" id="chk" style="width:95%;background-color:#eeeeee;color:red;text-decoration:bold;border:0px solid #FFFFFF;" readonly="readonly"/>
+</td>
+<td style="width:50%">
+	<button onclick="copyToClipboard()">전체 내용 복사</button>
+</td>
+</tr>
+
+<tr>
+<td>
+	<textarea id="txt1" style="width:100%;height:100%" onfocus="erasetext('원본 자막 붙여넣고 버튼을 누르세요')">원본 자막 붙여넣고 버튼을 누르세요</textarea>
+</td>
+<td>
+	<textarea id="txt2" style="width:100%;height:100%;background-color:#eeeeee;border:1px solid #000000;" readonly="readonly">변환된 자막을 전체 복사하세요</textarea>
+</td>
+</tr>
+</table>
+
+</div>
+
+</body>
+</html>
