@@ -1,203 +1,239 @@
-
 <!doctype html>
 <html lang="ko">
 <head>
-<title>여자친구 권장스밍 원터치 담기</title>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
-<meta name="content-language" content="kr">
-<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+    <title>여자친구 권장스밍 원터치 담기</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=2.0, minimum-scale=1.0, user-scalable=yes" />
+    <meta name="content-language" content="kr">
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
 
-<meta http-equiv="Expires" content="-1">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Cache-Control" content="no-cache">
-<link rel="stylesheet" type="text/css" href="style.css?new=220208">
+    <meta http-equiv="Expires" content="-1">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-Control" content="no-cache">
+    <link rel="stylesheet" type="text/css" href="style.css?new=220208">
 
-<script>
-window.onload = function() {
-	var ua = navigator.userAgent;
-
-	var today = new Date().getDay();
-	var txt = '';
-	if (today==4)
-		txt = '#2336 엠카 문투 원터치';
-	else if (today==6)
-		txt = '문자투표 #0505 음중';
-	txt = '';	// 문투 있을 때 주석처리
-	document.getElementById('sms').innerHTML = txt;
-	if (txt=='')
-		document.getElementById('vdiv').style.display = 'none';
-
-	var url = location.href;
-	if (url.indexOf('#')>0)
-	{
-		var music = url.substring(url.indexOf('#') + 1, 1000);
-		if (music.substring(0,4)=='vote')
-		{
-			vote();
-		}
-		else if (music.substring(0,4)=='app_')
-		{
-			music = music.substring(4,8);
-			//alert(music);
-			var url = '';
-			if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-			{
-				if (music=='open')
-					url = 'https://apps.apple.com/kr/app/id590379981';
-				if (music=='whos')
-					url = 'https://apps.apple.com/kr/app/id1473903262';
-				if (music=='idol')
-					url = 'https://apps.apple.com/kr/app/id1185735018';
-				if (music=='mel')
-					url = 'https://apps.apple.com/kr/app/id415597317';
-				if (music=='talk')
-					url = 'https://apps.apple.com/kr/app/id415597317';
-				if (music=='star')
-					url = 'https://apps.apple.com/kr/app/id1377584935';
-				if (music=='beat')
-					url = 'https://apps.apple.com/kr/app/id1320789688';
-				if (music=='sol')
-					url = 'https://apps.apple.com/kr/app/id357484932';
-			}
-			else
-			{
-				if (music=='open')
-					url = 'https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=ko';
-				if (music=='whos')
-					url = 'https://play.google.com/store/apps/details?id=com.hanteo.whosfanglobal';
-				if (music=='idol')
-					url = 'https://play.google.com/store/apps/details?id=com.nwz.ichampclient&hl=ko';
-				if (music=='mel')
-					url = 'https://play.google.com/store/apps/details?id=com.iloen.melon&hl=ko';
-				if (music=='talk')
-					url = 'https://play.google.com/store/apps/details?id=com.iloen.melon&hl=ko';
-				if (music=='star')
-					url = 'https://play.google.com/store/apps/details?id=inc.rowem.passicon';
-				if (music=='beat')
-					url = 'https://play.google.com/store/apps/details?id=com.vlending.apps.mubeat&hl=ko';
-				if (music=='sol')
-					url = 'https://play.google.com/store/apps/details?id=com.shinhan.sbanking&hl=ko';
-			}
-			//alert(url);
-
-			if (url!='')
-				location.href = url;
-		}
-		else if (music.substring(0,1) == '_')
-		{
-			stype = music.substring(1,music.lastIndexOf('_'));
-			music = music.substring(music.lastIndexOf('_') + 1, 1000);
-			if (stype=='melon')
-				url = "melonapp://play?ctype=1&menuid=0&cid=";
-			if (stype=='genie')
-			{
-				music = music.split(",").join(";");
-				url = "cromegenie://scan/?landing_type=31&landing_target=";
-			}
-			if (stype=='bugs')
-			{
-				music = music.split(",").join("|");
-				url = "bugs3://app/tracks/lists?track_ids=";
-			}
-			if (stype=='vibe')
-			{
-				music = music.split(",").join(",");
-				url = "vibe://listen?trackIds=";
-			}
-			//alert(url);
-			location.href = url + music;
-		}
-		else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='vibe')
-		{
-			document.getElementById(music).click();
-//			var url = document.getElementById(music).getAttribute('href');
-			//alert(url);
-//			location.href = url;
-		}
-	}
-	document.getElementById('agt').innerHTML = navigator.userAgent.toString();
-}
-
-function vote()
-{
-	if (document.getElementById('sms').innerHTML=='')
-		return;
-
-	var src = 'sms:%23';
-	var today = new Date().getDay();
-	if (today==4)
-		src += '2336';
-	else if (today==6)
-		src += '0505';
-	var ua = navigator.userAgent;
-	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-		location.href = src + '&body=여자친구';
-	else
-		location.href = src + '?body=여자친구';
-}
-
-function radio(num)
-{
-	var src = 'sms:%23' + num;
-	var ua = navigator.userAgent;
-	if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-		location.href = src + '&body=신청곡 여자친구 신곡 ';
-	else
-		location.href = src + '?body=신청곡 여자친구 신곡 ';
-}
-
-function isDesktopOS(){
-	return ( 'win16|win32|win64|windows|mac|macintel|linux|freebsd|openbsd|sunos'.indexOf(navigator.platform.toLowerCase()) >= 0 );
-}
-
-function ios(obj)
-{
-	var ua = navigator.userAgent;
-	
-	var src = obj.getAttribute('href');
-	if (obj.id.toString().substring(0,5)=='genie')	{
-		if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-			obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
-		else if (isDesktopOS())
-			window.open('https://www.genie.co.kr/player/shareProcessV2?xgnm='+src.substring(src.indexOf('target=')+7));
-	}
-	else {
-		if (ua.indexOf('iPhone') > 0)
-			obj.setAttribute('href', src.replace('melonapp','meloniphone'));
-		else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0)
-			obj.setAttribute('href', src.replace('melonapp','melonipad'));
-		else if (isDesktopOS())
-		{
-			if (src.indexOf('elonapp') > 0)
-				obj.setAttribute('href', src.replace('ctype=1&menuid=0&cid=','cType=1&cList='));
-			else if (src.indexOf('ugs3:') > 0)
-				window.open('https://music.bugs.co.kr/newPlayer?trackId='+src.substring(src.indexOf('track_ids=')+10).replace(/\|/gi,','));
-		}
-	}
-}
-
-function toggle(obj)
-{
-	if (document.getElementById(obj).style.display=='none')
-		document.getElementById(obj).style.display='';
-	else
-		document.getElementById(obj).style.display='none';
-}
+    <script>
+        // 데뷔 9주년 기간동안 9주년 사이트로 이동
+        location.href = `./9th/9th.html`;
 
 
-</script>
-<style>
-.guide {color:blue;font-size:14px;text-decoration:none;cursor:pointer;}
+        window.onload = function() {
+            // 다크모드 확인
+            const darkmode = localStorage.getItem("darkmode");
+            if (!darkmode) {
+                localStorage.setItem("darkmode","false");
+            }
+            else if (darkmode == "true") {
+                const darkBtn = document.getElementById(`dark-mode-btn`);
+                const switchDiv = document.getElementById(`dark-mode-switch`);
 
-</style>
+                darkBtn.style.left = '25px';
+                darkBtn.style.backgroundColor = 'gray';
+                switchDiv.style.backgroundColor = `white`;
+                document.body.style.backgroundColor = `#373a3c`;
+                document.body.style.color = `#ddd`;
+                document.querySelector("#center > p:nth-child(18) > a").style.color = `#da8d00`;
+            }
+
+            var ua = navigator.userAgent;
+
+            var today = new Date().getDay();
+            var txt = '';
+            if (today==4) txt = '#2336 엠카 문투 원터치';
+            else if (today==6) txt = '문자투표 #0505 음중';
+            txt = ''; // 문투 있을 때 주석처리
+            document.getElementById('sms').innerHTML = txt;
+            if (txt=='') document.getElementById('vdiv').style.display = 'none';
+            
+            var url = location.href;
+            if (url.indexOf('#')>0)
+            {
+                var music = url.substring(url.indexOf('#') + 1, 1000);
+                if (music.substring(0,4)=='vote') vote();
+                else if (music.substring(0,4)=='app_') {
+                    music = music.substring(4,8);
+                    // alert(music);
+                    var url = '';
+                    if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
+                        const musicForiPhoneURL = {
+                            open: 'https://apps.apple.com/kr/app/id590379981',
+                            whos: 'https://apps.apple.com/kr/app/id1473903262',
+                            idol: 'https://apps.apple.com/kr/app/id1185735018',
+                            mel: 'https://apps.apple.com/kr/app/id415597317',
+                            talk: 'https://apps.apple.com/kr/app/id415597317',
+                            star: 'https://apps.apple.com/kr/app/id1377584935',
+                            beat: 'https://apps.apple.com/kr/app/id1320789688',
+                            sol: 'https://apps.apple.com/kr/app/id357484932'
+                            // music: url
+                        }
+
+                        url = musicForiPhoneURL[music];
+                    }
+                    else {
+                        const musicForURL = {
+                            open: `https://play.google.com/store/apps/details?id=net.openvpn.openvpn&hl=ko`,
+                            whos: 'https://play.google.com/store/apps/details?id=com.hanteo.whosfanglobal',
+                            idol: 'https://play.google.com/store/apps/details?id=com.nwz.ichampclient&hl=ko',
+                            mel: 'https://play.google.com/store/apps/details?id=com.iloen.melon&hl=ko',
+                            talk: 'https://play.google.com/store/apps/details?id=com.iloen.melon&hl=ko',
+                            star: 'https://play.google.com/store/apps/details?id=inc.rowem.passicon',
+                            beat: 'https://play.google.com/store/apps/details?id=com.vlending.apps.mubeat&hl=ko',
+                            sol: 'https://play.google.com/store/apps/details?id=com.shinhan.sbanking&hl=ko'
+                            // music: url
+                        }
+
+                        url = musicForURL[music];
+                    }
+                    //alert(url);
+
+                    if (url!='') location.href = url;
+                }
+                else if (music.substring(0,1) == '_') {
+                    stype = music.substring(1,music.lastIndexOf('_'));
+                    music = music.substring(music.lastIndexOf('_') + 1, 1000);
+                    if (stype=='melon') {
+                        url = "melonapp://play?ctype=1&menuid=0&cid=";
+                    }
+                    else if (stype=='genie') {
+                        music = music.split(",").join(";");
+                        url = "cromegenie://scan/?landing_type=31&landing_target=";
+                    }
+                    else if (stype=='bugs') {
+                        music = music.split(",").join("|");
+                        url = "bugs3://app/tracks/lists?track_ids=";
+                    }
+                    else if (stype=='vibe') {
+                        music = music.split(",").join(",");
+                        url = "vibe://listen?trackIds=";
+                    }
+                    // alert(url);
+                    location.href = url + music;
+                }
+                else if (music.substring(0,5)=='sming' || music.substring(0,5)=='melon' || music=='genie' || music=='bugs' || music=='vibe') {
+                    document.getElementById(music).click();
+                    // var url = document.getElementById(music).getAttribute('href');
+                    // alert(url);
+                    // location.href = url;
+                }
+            }
+            document.getElementById('agt').innerHTML = navigator.userAgent.toString();
+        }
+
+        function vote() {
+            if (document.getElementById('sms').innerHTML=='') return;
+
+            var src = 'sms:%23';
+            var today = new Date().getDay();
+            if (today==4) src += '2336';
+            else if (today==6) src += '0505';
+            var ua = navigator.userAgent;
+            if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
+                location.href = src + '&body=여자친구';
+            }
+            else {
+                location.href = src + '?body=여자친구';
+            }
+        }
+
+        function radio(num) {
+            var src = 'sms:%23' + num;
+            var ua = navigator.userAgent;
+            if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
+                location.href = src + '&body=신청곡 여자친구 신곡 ';
+            }
+            else {
+                location.href = src + '?body=신청곡 여자친구 신곡 ';
+            }
+        }
+
+        function isDesktopOS() {
+            return ( 'win16|win32|win64|windows|mac|macintel|linux|freebsd|openbsd|sunos'.indexOf(navigator.platform.toLowerCase()) >= 0 );
+        }
+
+        function ios(obj) {
+            var ua = navigator.userAgent;
+            
+            var src = obj.getAttribute('href');
+            if (obj.id.toString().substring(0,5)=='genie')	{
+                if (ua.indexOf('iPhone') > 0 || ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
+                    obj.setAttribute('href', src.replace('cromegenie://scan','KTolleh00167://landing'));
+                }
+                else if (isDesktopOS()) {
+                    window.open('https://www.genie.co.kr/player/shareProcessV2?xgnm='+src.substring(src.indexOf('target=')+7));
+                }
+            }
+            else {
+                if (ua.indexOf('iPhone') > 0) {
+                    obj.setAttribute('href', src.replace('melonapp','meloniphone'));
+                }
+                else if (ua.indexOf('Macintosh') > 0 || ua.indexOf('iPad') > 0) {
+                    obj.setAttribute('href', src.replace('melonapp','melonipad'));
+                }
+                else if (isDesktopOS()) {
+                    if (src.indexOf('elonapp') > 0) {
+                        obj.setAttribute('href', src.replace('ctype=1&menuid=0&cid=','cType=1&cList='));
+                    }
+                    else if (src.indexOf('ugs3:') > 0) {
+                        window.open('https://music.bugs.co.kr/newPlayer?trackId='+src.substring(src.indexOf('track_ids=')+10).replace(/\|/gi,','));
+                    }
+                }
+            }
+        }
+
+        function toggle(obj) {
+            if (document.getElementById(obj).style.display=='none') {
+                document.getElementById(obj).style.display='';
+            }
+            else {
+                document.getElementById(obj).style.display='none';
+            }
+        }
+
+        function darkmode() {
+            const darkBtn = document.getElementById(`dark-mode-btn`);
+            const switchDiv = document.getElementById(`dark-mode-switch`);
+
+            if (darkBtn.style.left == '-2.5px') {
+                darkBtn.style.left = '25px';
+                darkBtn.style.backgroundColor = 'gray';
+                switchDiv.style.backgroundColor = `white`;
+                document.body.style.backgroundColor = `#373a3c`;
+                document.body.style.color = `#ddd`;
+                document.querySelector("#center > p:nth-child(18) > a").style.color = `#da8d00`;
+                localStorage.setItem("darkmode","true");
+            }
+            else {
+                darkBtn.style.left = '-2.5px';
+                darkBtn.style.backgroundColor = 'whitesmoke';
+                switchDiv.style.backgroundColor = `gray`;
+                document.body.style.backgroundColor = `white`;
+                document.body.style.color = `black`;
+                document.querySelector("#center > p:nth-child(18) > a").style.color = ``;
+                localStorage.setItem("darkmode","false");
+            }
+        }
+    </script>
+    <style>
+        .guide {
+            color :blue;
+            font-size: 14px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body style="margin:0">
-<div>
+<body>
+    <div id="content">
+        <div id="dark-mode-container">
+            <span style="margin-right: 15px; user-select: none;">다크 모드</span>
+            <div id="dark-mode-switch">
+                <button id="dark-mode-btn" onclick="darkmode()" style="left: -2.5px;"></button>
+            </div>
+        </div>
 
-<a id="sming" href="melonapp://play?ctype=1&menuid=0&cid=32145248,36313117,36076998,36676297,36502910,36105548,36430773,36263564,36369310,36327176,36582899,36518593,32895994,35868657,36331121,36613696,36263283,36564724,36356993,36637828,36491331,36411342,36631320,36394235,36668445,35966233,36263286,36539970,35621819,36679016,36354907" style="display:;"></a>
+        <a id="sming" href="melonapp://play?ctype=1&menuid=0&cid=32145248,36313117,36076998,36676297,36502910,36105548,36430773,36263564,36369310,36327176,36582899,36518593,32895994,35868657,36331121,36613696,36263283,36564724,36356993,36637828,36491331,36411342,36631320,36394235,36668445,35966233,36263286,36539970,35621819,36679016,36354907" style="display: none;"></a>
 
-<a id="sming2" href="cromegenie://scan/?landing_type=31&landing_target=90512667;" style="display:;"></a>
+        <a id="sming2" href="cromegenie://scan/?landing_type=31&landing_target=90512667;" style="display: none;"></a>
 
 <!--
 http://www.youtube.com/watch_videos?video_ids=
@@ -206,177 +242,158 @@ https://gfsming.github.io/#vote
 https://gfsming.github.io/#_vibe_21293002
 
 //-->
-<center>
-<div id="vdiv"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
+
+        <div id="center">
+            <div id="vdiv"><br><a id="sms" href="javascript:vote();" class="sms"></a><br></div>
+
+            <br><span style="font-size: 20px; font-weight: bold;">여자친구 권장스밍 원터치 담기!</span> 
+            <br><span style="font-size: 15px; color: brown;">재생목록을 비우고, <strong>꼭 새로고침</strong> 후 터치하세요</span>
+            <br><a href='javascript:void(0);' style="color: red; text-decoration: underline; font-weight: bold;"><span style="color: red;text-decoration: none;">12/9 유주 "온 세상이 나에게" 바로 담기!</span></a>
+            <br>
+            <br>
+            <!--
+            <br>
+            놀이,		ARIA
+            34544101,35172402,
+            -->
+            
+            <div id="melondiv">
+                <a style="margin-right: 15px;" class="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36930793,36930794,36930795,36930796,36930797,34614816,35374190,36090801">Melon 원터치 담기 1</a>
+                <a class="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36930793,37043558,36252188,36722522,31052421,8262125,8028701,5791706,5650996">담기 2</a> 
+            </div>
+
+            <span style="margin-top: 5px; display: block;">모두 눌러서 담아주세요</span>
+
+            <!--
+
+            <a href="http://m.genie.co.kr/m/Musicplayer/WebPlayer.asp?streamList=
+
+            <div>
+            <a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=91299354;93851522;93434601;91299355;91299356;91299357;91299358;91299359;91299360;91299354;91299364;90512667;89818161;87946017;86427291;85871514;84581811;83803624" class="btn1" target="_blank">Genie 전체 웹스트리밍</a> &nbsp;
+            <a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=93851522" class="btn1" target="_blank">N회용 1곡 웹스트리밍</a>
+            </div>
+            -->
+
+            <!--
+            <tr valign="top" align="center" style="display:none;">
+            <td><span onclick="toggle('m1');" class="guide">Melon<br>가이드</span></td>
+            <td>
+            <a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=">Melon 권장스밍 담기</a>
+            <br><br>
+            </td>
+            <td><span onclick="toggle('m2');" class="guide">Melon<br>쉼스밍</span></td>
+            </tr>
 
 
+            <td><span onclick="toggle('g1');" class="guide">Genie<br>가이드</span></td>
+            <td><span onclick="toggle('g2');" class="guide">Genie<br>쉼스밍</span></td>
 
 
-<br><span style="font-size:20px;font-weight:bold;">여자친구 권장스밍 원터치 담기!</span> 
-<br><span style="font-size:15px;color:brown;">재생목록을 비우고, <strong>꼭 새로고침</strong> 후 터치하세요</span>
-<br><a href='javascript:void(0);' style="color:red;text-decoration:;font-weight:bold;"><span style="color:red;text-decoration:none;">12/9 유주 "온 세상이 나에게" 바로 담기!</span></a>
-<br>
-<br>
-<!--
-<br>
-놀이,		ARIA
-34544101,35172402,
--->
- 
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36930793,36930794,36930795,36930796,36930797,34614816,35374190,36090801">Melon 원터치 담기 1</a> 
-&nbsp;
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=36930793,37043558,36252188,36722522,31052421,8262125,8028701,5791706,5650996">담기 2</a> 
-
-<br>모두 눌러서 담아주세요
-
-<br><br>
-<!--
-
-<a href="http://m.genie.co.kr/m/Musicplayer/WebPlayer.asp?streamList=
-
-<div>
-<a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=91299354;93851522;93434601;91299355;91299356;91299357;91299358;91299359;91299360;91299354;91299364;90512667;89818161;87946017;86427291;85871514;84581811;83803624" class="btn1" target="_blank">Genie 전체 웹스트리밍</a> &nbsp;
-<a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=93851522" class="btn1" target="_blank">N회용 1곡 웹스트리밍</a>
-</div>
--->
-
-<table>
-<!--
-<tr valign="top" align="center" style="display:none;">
-<td><span onclick="toggle('m1');" class="guide">Melon<br>가이드</span></td>
-<td>
-<a class="melon" id="melon" onclick="ios(this);" href="melonapp://play?ctype=1&menuid=0&cid=">Melon 권장스밍 담기</a>
-<br><br>
-</td>
-<td><span onclick="toggle('m2');" class="guide">Melon<br>쉼스밍</span></td>
-</tr>
+            놀이,		ARIA
+            ;95722050;96823621
 
 
-<td><span onclick="toggle('g1');" class="guide">Genie<br>가이드</span></td>
-<td><span onclick="toggle('g2');" class="guide">Genie<br>쉼스밍</span></td>
+            -->
+            <p><a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=104169271;104169272;104169273;104169274;104169275;95970683;97361868;100235634;104169271;104727028;100761166;103167914;87946017;86427291;85871514;84581811;83803624">Genie 권장스밍</a></p>
+
+            <p><a class="bugs" id="bugs" onclick="ios(this);" href="bugs3://app/tracks/lists?track_ids=6221133|6221134|6221135|6221136|6221137|6146245|6167619|6188783|6221133|6225368|6192123|6212907|31051970|30315228|30137632|4479093|4277616">Bugs 권장스밍</a></p>
+
+            <!--
+            &nbsp;&nbsp;
+            <a class="flo" href="http://flomuz.io/s/r.hGb2BAliC">FLO 플레이리스트</a>
+
+            놀이,		ARIA
+            6143935|6162244
 
 
-놀이,		ARIA
-;95722050;96823621
+            -->
+
+            <!-- &nbsp;
+            <a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=95722050;95722051;95722052;95722053;95722049;87946017;95722050;91299354;91299358;91299359;91299360;95722050;86427291;85871514;84581811;83803624" class="btn1" target="_blank">웹스트리밍</a>
+            -->
+            <!--
+            <a class="flo" href="flo.jpg">FLO 캡쳐이미지 링크다운</a>
+            <br>
+            <span style="font-size:15px;color:purple;">FLO 링크다운 > 보관함 내리스트 > 캡쳐이미지 만들기</span>
+            <br><a class="flo" id="flo" href="flomusic://view/content?type=ALBUM&id=407008732" style="display:;">FLO 앨범화면 이동</a>
+            <a href="mp20.mp3" class="file" target="_blank" style="display:;">20분 mp3</a> 
+            <a href="mp10.mp3" class="file" target="_blank" style="display:;">10분 mp3</a> 
+            <br>
+            -->
+
+            <p><a class="vibe" id="vibe" href="vibe://listen?trackIds=81587907,80470554,60437251,53658344,55706178,66956344,62579023,52865104,66733258,55167906,21293002,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a></p>
+            <!--
+            <a class="spt" href="https://open.spotify.com/playlist/7nd2TdQYOSHQD4RvTTnorq?si=-llQvlqtR9Cns76g6gGIbw">Spotify Playlist</a>
+            -->
+
+            <p style="margin-top: 25px; margin-bottom: 25px;"><a class="btn2" href="play">버디의 플레이리스트 선곡</a></p>
+
+            <div style="display: flex; justify-content: center;">        
+                <a href="mp56.mp3" class="file" target="_blank" style="margin-right: 5px;"><b>N회용 무음mp3</b></a>
+                <a href="cromegenie://scan/?landing_type=31&landing_target=104169271" id="genie1song" onclick="ios(this);" class="btn1" target="_blank">N회용 지니앱 재생</a>
+            </div>
+            <p style="margin-top: 5px; margin-bottom: 0;">Download! 길게 눌러서 링크 저장</p>
+            <p style="margin-top: 0; margin-bottom: 20px;"><a href='https://download.apkcombo.com/com.ktmusic.geniemusic/%EC%A7%80%EB%8B%88%EB%AE%A4%EC%A7%81_04.06.06_apkcombo.com.apk?ecp=Y29tLmt0bXVzaWMuZ2VuaWVtdXNpYy8wNC4wNi4wNi80MDYwNjAxLmNmZmQyNzkxM2EyZGEyYWQ3NGQ4ZjM2YzY3OTBlYzQ2MzY5NGQ3YmMuYXBr&iat=1702379414&sig=478b37a3be31a4b711f1fac8c5f63f60&size=26823166&from=cf&version=old&lang=ko&fp=901a020ae4d08be9ad2f2cee4a70112e'>지니뮤직 구버전 APK</a> <span>스밍중단방지</span></p>
+
+            <a class="video" target="_blank" href="https://www.youtube.com/watch?v=9JFi7MmjtGA">공식뮤비 스트리밍</a>
+            <!--a class="video" target="_blank" href="https://www.youtube.com/watch_videos?video_ids=ROGJzLUzIIs,6meUjjlhUEU">공식뮤비 스트리밍</a-->
+            <br><br>
+
+            <div>
+                <a class="btn3" href="javascript:radio('8000');">MBC FM4U</a>
+                <a class="btn2" href="javascript:radio('1077');">SBS 파워FM</a>
+                <a class="btn1" href="javascript:radio('8910');">KBS 쿨FM</a>
+            </div>
+            <div style="margin: 15px 0;">
+                <a class="btn3" href="javascript:radio('8001');">MBC 표준FM</a>
+                <a class="btn2" href="javascript:radio('1035');">SBS 러브FM</a>
+                <a class="btn1" href="javascript:radio('1061');">KBS 해피FM</a>
+            </div>
+
+            <br>
+            <br>
+            <a class="twit" target="_blank" href="https://twitter.com/GFriend_strm">여친음원팀 트위터 가기</a>
+
+            <br><br>
+            <a style="display:none;" href="flomusic://action/mylist/addtrack?trackIds=31413840">flo</a>
+            <a style="display:none;" href="flomusic://play/mylist/addtrack/?key_id=31413840">flo</a>
+
+            <a style="display:none;" href="flomusic://play_all?selected_ids=31413840">play</a>
+            <a style="display:none;" href="flomusic://play/31413840">one</a>
 
 
--->
-<tr valign="top" align="center">
-<td>
-<a class="genie" id="genie" onclick="ios(this);" href="cromegenie://scan/?landing_type=31&landing_target=104169271;104169272;104169273;104169274;104169275;95970683;97361868;100235634;104169271;104727028;100761166;103167914;87946017;86427291;85871514;84581811;83803624">Genie 권장스밍</a>
+            <div id='agt' style="color:#fff;display: none;"></div>
+            <a href="melonapp://play?ctype=1&menuid=0&cid=" style="display:none">test</a>
 
+            <br><br>
+            <br><br>
 
-&nbsp;
-<!--<a href="gfplay.smpl" id="genie1song" class="btn1" target="_blank">삼성뮤직 플리 다운</a>-->
-<br><br>
-</td>
-</tr>
-<tr>
-<td>
-<a class="bugs" id="bugs" onclick="ios(this);" href="bugs3://app/tracks/lists?track_ids=6221133|6221134|6221135|6221136|6221137|6146245|6167619|6188783|6221133|6225368|6192123|6212907|31051970|30315228|30137632|4479093|4277616">Bugs 권장스밍</a>
+            <div id="m1">
+                <div style="color: white; width: 100%; height: 30px; cursor: pointer;" onclick="toggle('m1');">Melon 기본 가이드 닫기 X</div>
+                <embed src="https://video.twimg.com/tweet_video/ERNvDLjU4AANRF3.mp4" width="420px" height="750px" allowFullScreen="true">
+                <br><br><br>
+            </div>
 
-</td>
-</tr>
-</table>
-<!--
-&nbsp;&nbsp;
-<a class="flo" href="http://flomuz.io/s/r.hGb2BAliC">FLO 플레이리스트</a>
+            <div id="m2">
+                <div style="color: white; width: 100%; height: 30px; cursor: pointer;" onclick="toggle('m2');">Melon 쉼스밍 가이드 닫기 X</div>
+                <embed src="https://video.twimg.com/tweet_video/ERNvFdrVAAEXuHM.mp4" width="420px" height="750px" allowFullScreen="true">
+                <br><br><br>
+            </div>
 
-놀이,		ARIA
-6143935|6162244
+            <div id="g1">
+                <div style="color: white; width: 100%; height: 30px; cursor: pointer;" onclick="toggle('g1');">Genie 기본 가이드 닫기 X</div>
+                <embed src="https://twitter.com/i/videos/1281212734340599808?embed_source=facebook" width="420px" height="750px" allowFullScreen="true">
+                <br><br><br>
+            </div>
 
+            <div id="g2">
+                <div style="color: white; width: 100%; height: 30px; cursor: pointer;" onclick="toggle('g2');">Genie 쉼스밍 가이드 닫기 X</div>
+                <embed src="https://twitter.com/i/videos/1281212736920117249?embed_source=facebook" width="420px" height="750px" allowFullScreen="true">
+                <br><br><br>
+            </div>
 
--->
-<br>
+        </div>
 
-<!-- &nbsp;
-<a href="https://www.genie.co.kr/player/shareProcessV2?xgnm=95722050;95722051;95722052;95722053;95722049;87946017;95722050;91299354;91299358;91299359;91299360;95722050;86427291;85871514;84581811;83803624" class="btn1" target="_blank">웹스트리밍</a>
--->
-<!--
-<a class="flo" href="flo.jpg">FLO 캡쳐이미지 링크다운</a>
-<br>
-<span style="font-size:15px;color:purple;">FLO 링크다운 > 보관함 내리스트 > 캡쳐이미지 만들기</span>
-<br><a class="flo" id="flo" href="flomusic://view/content?type=ALBUM&id=407008732" style="display:;">FLO 앨범화면 이동</a>
-<a href="mp20.mp3" class="file" target="_blank" style="display:;">20분 mp3</a> 
-<a href="mp10.mp3" class="file" target="_blank" style="display:;">10분 mp3</a> 
-<br>
--->
-
-<a class="vibe" id="vibe" href="vibe://listen?trackIds=81587907,80470554,60437251,53658344,55706178,66956344,62579023,52865104,66733258,55167906,21293002,6200522,5945464,5525076,4918248">Vibe 권장스밍 담기</a>
-<!--
-<a class="spt" href="https://open.spotify.com/playlist/7nd2TdQYOSHQD4RvTTnorq?si=-llQvlqtR9Cns76g6gGIbw">Spotify Playlist</a>
--->
-<br><br>
-<a class="btn2" href="play">버디의 플레이리스트 선곡</a>
-
-<br><br>
-<div style="">
-<a href="mp56.mp3" class="file" target="_blank" style="display:;"><b>N회용 무음mp3</b></a> 
-<a href="cromegenie://scan/?landing_type=31&landing_target=104169271" id="genie1song" onclick="ios(this);" class="btn1" target="_blank">N회용 지니앱 재생</a>
-<br>Download! 길게 눌러서 링크 저장 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; 
-<br><a href='https://download.apkcombo.com/com.ktmusic.geniemusic/%EC%A7%80%EB%8B%88%EB%AE%A4%EC%A7%81_04.06.06_apkcombo.com.apk?ecp=Y29tLmt0bXVzaWMuZ2VuaWVtdXNpYy8wNC4wNi4wNi80MDYwNjAxLmNmZmQyNzkxM2EyZGEyYWQ3NGQ4ZjM2YzY3OTBlYzQ2MzY5NGQ3YmMuYXBr&iat=1702379414&sig=478b37a3be31a4b711f1fac8c5f63f60&size=26823166&from=cf&version=old&lang=ko&fp=901a020ae4d08be9ad2f2cee4a70112e'>지니뮤직 구버전 APK</a> 스밍중단방지
-</div>
-
-<br>
-
-<a class="video" target="_blank" href="https://www.youtube.com/watch?v=9JFi7MmjtGA">공식뮤비 스트리밍</a>
-<!--a class="video" target="_blank" href="https://www.youtube.com/watch_videos?video_ids=ROGJzLUzIIs,6meUjjlhUEU">공식뮤비 스트리밍</a-->
-<br><br>
-
-<div>
-<a class="btn3" href="javascript:radio('8000');">MBC FM4U</a>
-<a class="btn2" href="javascript:radio('1077');">SBS 파워FM</a>
-<a class="btn1" href="javascript:radio('8910');">KBS 쿨FM</a>
-</div>
-<div style="margin:15px 0;">
-<a class="btn3" href="javascript:radio('8001');">MBC 표준FM</a>
-<a class="btn2" href="javascript:radio('1035');">SBS 러브FM</a>
-<a class="btn1" href="javascript:radio('1061');">KBS 해피FM</a>
-</div>
-
-<br>
-<br>
-<a class="twit" target="_blank" href="https://twitter.com/GFriend_strm">여친음원팀 트위터 가기</a>
-
-<br><br>
-<a style="display:none;" href="flomusic://action/mylist/addtrack?trackIds=31413840">flo</a>
-<a style="display:none;" href="flomusic://play/mylist/addtrack/?key_id=31413840">flo</a>
-
-<a style="display:none;" href="flomusic://play_all?selected_ids=31413840">play</a>
-<a style="display:none;" href="flomusic://play/31413840">one</a>
-
-
-<div id='agt' style="color:#fff;display:;"></div>
-<a href="melonapp://play?ctype=1&menuid=0&cid=" style="display:none">test</a>
-
-<br><br>
-<br><br>
-
-<div id="m1" style="display:none;position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:#000;">
-<div style="color:#FFF;width:100%;height:30px;cursor:pointer" onclick="toggle('m1');">Melon 기본 가이드 닫기 X</div>
-<embed src="https://video.twimg.com/tweet_video/ERNvDLjU4AANRF3.mp4" width="420px" height="750px" allowFullScreen="true">
-<br><br><br>
-</div>
-
-<div id="m2" style="display:none;position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:#000;">
-<div style="color:#FFF;width:100%;height:30px;cursor:pointer" onclick="toggle('m2');">Melon 쉼스밍 가이드 닫기 X</div>
-<embed src="https://video.twimg.com/tweet_video/ERNvFdrVAAEXuHM.mp4" width="420px" height="750px" allowFullScreen="true">
-<br><br><br>
-</div>
-
-<div id="g1" style="display:none;position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:#000;">
-<div style="color:#FFF;width:100%;height:30px;cursor:pointer" onclick="toggle('g1');">Genie 기본 가이드 닫기 X</div>
-<embed src="https://twitter.com/i/videos/1281212734340599808?embed_source=facebook" width="420px" height="750px" allowFullScreen="true">
-<br><br><br>
-</div>
-
-<div id="g2" style="display:none;position:absolute;z-index:100;top:0;left:0;width:100%;height:100%;background-color:#000;">
-<div style="color:#FFF;width:100%;height:30px;cursor:pointer" onclick="toggle('g2');">Genie 쉼스밍 가이드 닫기 X</div>
-<embed src="https://twitter.com/i/videos/1281212736920117249?embed_source=facebook" width="420px" height="750px" allowFullScreen="true">
-<br><br><br>
-</div>
-
-</center>
-
+    </div>
 </body>
 </html>
