@@ -94,7 +94,7 @@ function conAssSrt()
 				ret = ret + c.replace('.','') + '\n';
 			}
 		}
-		t2.value = ret;
+		t2.value = ret + '\n';
 		ck.value = 'SRT 형식으로 변환되었습니다';
 	}
 	else if (otxt.indexOf(' --> ') > 1)
@@ -156,7 +156,7 @@ function conAssSrt()
 		ass += '\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text';
 
 
-		t2.value = ass + '\n' + ret;
+		t2.value = ass + '\n' + ret + '\n';
 		ck.value = 'ASS 형식으로 변환되었습니다';
 	}
 	else
