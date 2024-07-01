@@ -34,6 +34,25 @@ function copyToClipboard() {
 	}
 }
 
+function chineseRegex() {
+
+	var ck = document.getElementById('chk');
+	var t1 = document.getElementById('txt1');
+	var t2 = document.getElementById('txt2');
+	var val = t1.value;
+	//val = val.replace(/^[一-龥\s]+$/, 'chinese');
+	//t2.value = val;
+	
+	ret = '없음';
+	var cnRegex = /[一-龥]/;
+	if(val.length>0)
+		if(val.match(cnRegex))
+			ret = '중국어 한자 있음';
+	ck.value = ret;
+
+}
+
+
 function erasetext(word) {
 	var ck = document.getElementById('chk');
 	var t1 = document.getElementById('txt1');
@@ -307,6 +326,7 @@ function syncSub()
 </script>
 </head>
 <body style="width:100%;height:100%">
+<button onclick="chineseRegex()">한자체크</button>
 
 <button onclick="erasetext()">괄호 삭제</button>
 &nbsp;
