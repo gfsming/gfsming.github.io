@@ -41,13 +41,14 @@ function chineseRegex() {
 	var t2 = document.getElementById('txt2');
 	var val = t1.value;
 	//val = val.replace(/^[一-龥\s]+$/, 'chinese');
-	//t2.value = val;
 	
 	ret = '없음';
 	var cnRegex = /[一-龥]/;
 	if(val.length>0)
 		if(val.match(cnRegex))
 			ret = '중국어 한자 있음';
+			//val.replace(cnRegex, 'chinese');
+			//t2.value = val;
 	ck.value = ret;
 
 }
