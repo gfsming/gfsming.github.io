@@ -2,12 +2,12 @@
 <html lang="en" style="width:100%;height:100%">
 <head>
 <meta charset="UTF-8">
-<meta name="Generator" content="EditPlus®">
-<meta name="Author" content="">
-<meta name="Keywords" content="">
-<meta name="Description" content="">
-<title>자막 변환</title>
+<title>자막</title>
 <script>
+String.prototype.replaceAll = function(org, dest) {     
+	return this.split(org).join(dest); 
+}
+
 String.prototype.zfill = function(width) {
     const currentLength = this.length;
     if (currentLength >= width) {
@@ -34,26 +34,6 @@ function copyToClipboard() {
 	}
 }
 
-function chineseRegex() {
-
-	var ck = document.getElementById('chk');
-	var t1 = document.getElementById('txt1');
-	var t2 = document.getElementById('txt2');
-	var val = t1.value;
-	//val = val.replace(/^[一-龥\s]+$/, 'chinese');
-	
-	ret = '없음';
-	var cnRegex = /[一-龥]/;
-	if(val.length>0)
-		if(val.match(cnRegex))
-			ret = '중국어 한자 있음';
-			//val.replace(cnRegex, 'chinese');
-			//t2.value = val;
-	ck.value = ret;
-
-}
-
-
 function erasetext(word) {
 	var ck = document.getElementById('chk');
 	var t1 = document.getElementById('txt1');
@@ -71,7 +51,51 @@ function erasetext(word) {
 		else
 			ck.value = '삭제할 괄호가 없습니다';
 	}
-	else if (word.length < 2)
+	else if (word=='n')
+	{	
+		otxt = otxt.replaceAll('“','"');
+		otxt = otxt.replaceAll('”','"');
+		otxt = otxt.replaceAll('：','。');
+		otxt = otxt.replaceAll('……','…');
+
+		otxt = otxt.replaceAll('。','.\n_');
+		otxt = otxt.replaceAll('…','…\n_');
+		otxt = otxt.replaceAll('？','?\n_');
+		otxt = otxt.replaceAll('！','!\n_');
+		otxt = otxt.replaceAll('?\n_!','?!');
+		otxt = otxt.replaceAll('!\n_?','!?');
+
+		otxt = otxt.replaceAll('.\n_"\n','."\n');
+		otxt = otxt.replaceAll('…\n_"\n','…"\n');
+		otxt = otxt.replaceAll('?\n_"\n','?"\n');
+		otxt = otxt.replaceAll('!\n_"\n','!"\n');
+
+		otxt = otxt.replaceAll('.\n_\n','.\n');
+		otxt = otxt.replaceAll('…\n_\n','…\n');
+		otxt = otxt.replaceAll('?\n_\n','?\n');
+		otxt = otxt.replaceAll('!\n_\n','!\n');
+
+		otxt = otxt.replaceAll('.\n_"','."\n_');
+		otxt = otxt.replaceAll('…\n_"','…"\n_');
+		otxt = otxt.replaceAll('?\n_"','?"\n_');
+		otxt = otxt.replaceAll('!\n_"','!"\n_');
+
+		otxt = otxt.replaceAll('_','');
+		var orr = otxt.split('"\n');
+		var txt = '';
+		for (var i = 0; i < orr.length ; i++)
+		{
+			if (i == orr.length - 1)
+				txt += orr[i];
+			else if (i % 2 == 0)
+				txt += orr[i] + '\n"';
+			else
+				txt += orr[i] + '"\n';
+		}
+		t2.value = txt;
+		ck.value = '원문 개행처리 하였습니다';
+	}
+	else if (word=='.')
 	{
 		var etxt = otxt.replace(/[\t]+/g,' ').replace(/ {2,}/g, ' ').replace(/ +$/gm, '').replace(/\.+$/gm, '').replace(/\,+$/gm, '');//.replace(/\?+$/gm, '');
 		t2.value = etxt;
@@ -79,11 +103,9 @@ function erasetext(word) {
 	}
 	else
 	{
-		t1.value = otxt.replace(word,'');
+		t1.value = otxt.replaceAll(word,'');
 		ck.value = '';
 	}
-
-//.replace(/[\n\r]+/g, ' ')
 
 }
 
@@ -95,7 +117,7 @@ function conAssSrt()
 	var ret = '';
 
 	var otxt = t1.value;
-	if (otxt.indexOf('Dialogue:') > 1)
+	if (otxt.lastIndexOf('Dialogue:') > 0)
 	{
 		var arr = otxt.split('Dialogue: ');
 		for (var i=0; i < arr.length; i++)
@@ -117,7 +139,7 @@ function conAssSrt()
 		t2.value = ret;
 		ck.value = 'SRT 형식으로 변환되었습니다';
 	}
-	else if (otxt.indexOf(' --> ') > 1)
+	else if (otxt.lastIndexOf(' --> ') > 0)
 	{
 		var arr = otxt.split(' --> ');
 		for (var i=0; i < arr.length; i++)
@@ -138,7 +160,7 @@ function conAssSrt()
 				aaa = (Math.floor(aa/3600000)).toString().zfill(2) + ':' + Math.floor((aa%3600000)/60000).toString().zfill(2) + ':' + Math.floor((aa%60000)/1000).toString().zfill(2) + ',' + (aa%1000).toString().zfill(3);
 				etime = aaa.substring(1,11);
 
-				tt = s.substring(13,s.lastIndexOf('\n')-1);
+				tt = s.substring(13,200);
 				ret = ret + ',' + etime.replace(',','.') + ',,,0,0,0,,' + tt.replace(/\n/g,'\\N');
 			}
 			else
@@ -175,8 +197,8 @@ function conAssSrt()
 		ass += '\n[Events]';
 		ass += '\nFormat: Layer, Start, End, Style, Name, MarginL, MarginR, MarginV, Effect, Text';
 
-
-		t2.value = ass + '\n' + ret;
+		ass = ass + '\n' + ret.replace('\\N\\N','\\N') + '\n';
+		t2.value = ass.replace('\\N\n','\n');
 		ck.value = 'ASS 형식으로 변환되었습니다';
 	}
 	else
@@ -324,14 +346,21 @@ function syncSub()
 }
 
 
+function conWord() 
+{
+	alert('아직 작동되지 않습니다');
+
+}
 </script>
 </head>
 <body style="width:100%;height:100%">
-<!--button onclick="chineseRegex()">한자체크</button-->
 
 <button onclick="erasetext()">괄호 삭제</button>
 &nbsp;
 <button onclick="erasetext('.')">문장 끝 ,. 삭제</button>
+&nbsp;
+<button onclick="erasetext('n')">원문개행</button>
+<!--button onclick="conWord()">기계번역 대화체로</button-->
 &nbsp;
 <button onclick="conAssSrt()">ASS <> SRT 자막 변환</button>
 &nbsp;
